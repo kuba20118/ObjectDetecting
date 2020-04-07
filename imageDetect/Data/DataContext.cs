@@ -1,6 +1,7 @@
-﻿using imageDetect.Model;
+﻿using imageDetect;
 using Microsoft.EntityFrameworkCore;
 using System;
+using imageDetect.Model;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -13,6 +14,9 @@ namespace imageDetect.Data
 
         public DbSet<Value> Values { get; set; }
 
+        public DbSet<Photos> Photos { get; set; }
+
+        public DbSet<Statistics> Statistics { get; set; }
 
     }
 }

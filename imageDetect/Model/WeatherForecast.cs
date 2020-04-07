@@ -1,6 +1,6 @@
 using System;
 
-namespace imageDetect
+namespace imageDetect.Model
 {
     public class WeatherForecast
     {

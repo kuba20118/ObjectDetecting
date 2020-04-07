@@ -11,6 +11,6 @@ namespace imageDetect.Model
         public int FoundNumber { get; set; }
         public int RealNumber { get; set; }
         public int ObjectID { get; set; }
-        public virtual Statistics PhotoStatistics { get; set; }
+        public virtual Statistics ObjectStatistics { get; set; }
     }
 }

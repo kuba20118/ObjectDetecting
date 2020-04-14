@@ -12,8 +12,6 @@ namespace imageDetect.Data
     {
         public DataContext(DbContextOptions<DataContext> options) : base(options) { }
 
-        public DbSet<Value> Values { get; set; }
-
         public DbSet<Photos> Photos { get; set; }
 
         public DbSet<Statistics> Statistics { get; set; }

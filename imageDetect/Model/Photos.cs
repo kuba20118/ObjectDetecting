@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace imageDetect.Model
 {
-    public class Photos : Value
+    public class Photos
     {
         public byte[] Photo { get; set; }
         public int FoundNumber { get; set; }

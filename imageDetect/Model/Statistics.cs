@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace imageDetect.Model
 {
-    public class Statistics : Value
+    public class Statistics
     {
         public int NumberOfSearches { get; set; }
         public int ZeroObjects { get; set; }

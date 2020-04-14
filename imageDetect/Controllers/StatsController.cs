@@ -16,14 +16,5 @@ namespace imageDetect.Controllers
         {
 
         }
-
-        [HttpPost]
-        public async Task<IActionResult> AnalizeImage([FromForm] NewImageDTO image)
-        {
-            var file = image.File;
-
-
-            return Ok();
-        }
     }
 }

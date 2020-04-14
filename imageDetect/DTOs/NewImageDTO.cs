@@ -15,8 +15,6 @@ namespace imageDetect.DTOs
         public NewImageDTO()
         {
             AddTime = DateTime.Now;
-            Name = Guid.NewGuid().ToString();
-
         }
     }
 }

@@ -1,28 +1,21 @@
-import React, { useState } from 'react';
-import logo from './logo.svg';
-import 'bootstrap/dist/css/bootstrap.min.css'
-import './App.css';
-import {Container, Row, Col} from 'react-bootstrap';
+import React from "react";
+import "./assets/main.scss";
+import { BrowserRouter, Route } from "react-router-dom";
+import { Container } from "react-bootstrap";
+import ImageUploadContainer from "./containers/ImageUploadContainer";
+import StatsContainer from "./containers/StatsContainer";
+import Navigation from "./components/Navigation";
 
-
-
-function App() {
-  const [titleStyle, setTitleStyle] = useState("");
-  return (    
-    
-    <Container>
-      <Row>
-        <p style={{font: titleStyle}}>CatFinder</p>
-      </Row>
-      
-      <Row>
-        <button onClick={()=>setTitleStyle("bold 30px Comic Sans MS, serif")}>
-          Comic Sans-inator
-        </button>
-      </Row>          
-         
+const App = () => {
+  return (
+    <Container className="main">
+      <BrowserRouter>
+        <Navigation />
+        <Route exact path="/" component={ImageUploadContainer} />
+        <Route path="/statystyki" component={StatsContainer} />
+      </BrowserRouter>
     </Container>
   );
-}
+};
 
 export default App;

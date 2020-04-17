@@ -24,5 +24,9 @@
     <PackageReference Include="Z.EntityFramework.Extensions.EFCore" Version="3.0.64" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Data\Generics\" />
+  </ItemGroup>
+
 
 </Project>

@@ -7,6 +7,7 @@ namespace imageDetect.Model
 {
     public class Photos
     {
+        public int ID { get; set; }
         public byte[] Photo { get; set; }
         public int FoundNumber { get; set; }
         public int RealNumber { get; set; }

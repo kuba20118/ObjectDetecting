@@ -12,7 +12,7 @@ namespace imageDetect.Data
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseMySql(@"server=localhost;port=3306;user=user;password=password;database=db;");
+            optionsBuilder.UseMySql(@"server=localhost;port=3306;user=user;password=password;database=ObjestsBase;");
         }
         public DataContext(DbContextOptions<DataContext> options) : base(options) { }
 

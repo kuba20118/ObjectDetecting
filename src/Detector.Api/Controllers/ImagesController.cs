@@ -7,21 +7,18 @@ using Microsoft.AspNetCore.Mvc;
 namespace Detector.Api.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
-    public class ImagesController : ControllerBase
+    public class ImagesController : ApiControllerBase
     {
         private readonly IImageService _imageService;
-        private readonly ICommandDispatcher _commandDispatcher;
-        public ImagesController(IImageService imageService, ICommandDispatcher commandDispatcher)
+        public ImagesController(IImageService imageService, CommandDispatcher commandDispatcher) : base(commandDispatcher)
         {
-            _commandDispatcher = commandDispatcher;
             _imageService = imageService;
         }
 
         [HttpPost]
         public async Task<IActionResult> Post(AddImage command)
         {
-            await _commandDispatcher.DispatchAsync(command);
+            await CommandDispatcher.DispatchAsync(command);
             return Ok();
         }
 

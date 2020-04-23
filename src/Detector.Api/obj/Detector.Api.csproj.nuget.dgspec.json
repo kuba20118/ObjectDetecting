@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\JP\\Documents\\kropkaNet\\cebula\\src\\Detector.Api\\Detector.Api.csproj": {}
+    "C:\\Users\\JP\\Documents\\kropkaNet\\PP\\src\\Detector.Api\\Detector.Api.csproj": {}
   },
   "projects": {
-    "C:\\Users\\JP\\Documents\\kropkaNet\\cebula\\src\\Detector.Api\\Detector.Api.csproj": {
+    "C:\\Users\\JP\\Documents\\kropkaNet\\PP\\src\\Detector.Api\\Detector.Api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\JP\\Documents\\kropkaNet\\cebula\\src\\Detector.Api\\Detector.Api.csproj",
+        "projectUniqueName": "C:\\Users\\JP\\Documents\\kropkaNet\\PP\\src\\Detector.Api\\Detector.Api.csproj",
         "projectName": "Detector.Api",
-        "projectPath": "C:\\Users\\JP\\Documents\\kropkaNet\\cebula\\src\\Detector.Api\\Detector.Api.csproj",
+        "projectPath": "C:\\Users\\JP\\Documents\\kropkaNet\\PP\\src\\Detector.Api\\Detector.Api.csproj",
         "packagesPath": "C:\\Users\\JP\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\JP\\Documents\\kropkaNet\\cebula\\src\\Detector.Api\\obj\\",
+        "outputPath": "C:\\Users\\JP\\Documents\\kropkaNet\\PP\\src\\Detector.Api\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -30,8 +30,8 @@
         "frameworks": {
           "netcoreapp3.1": {
             "projectReferences": {
-              "C:\\Users\\JP\\Documents\\kropkaNet\\cebula\\src\\Detector.Infrastructure\\Detector.Infrastructure.csproj": {
-                "projectPath": "C:\\Users\\JP\\Documents\\kropkaNet\\cebula\\src\\Detector.Infrastructure\\Detector.Infrastructure.csproj"
+              "C:\\Users\\JP\\Documents\\kropkaNet\\PP\\src\\Detector.Infrastructure\\Detector.Infrastructure.csproj": {
+                "projectPath": "C:\\Users\\JP\\Documents\\kropkaNet\\PP\\src\\Detector.Infrastructure\\Detector.Infrastructure.csproj"
               }
             }
           }
@@ -52,6 +52,10 @@
             "AutoMapper.Extensions.Microsoft.DependencyInjection": {
               "target": "Package",
               "version": "[7.0.0, )"
+            },
+            "Autofac.Extensions.DependencyInjection": {
+              "target": "Package",
+              "version": "[6.0.0, )"
             }
           },
           "imports": [
@@ -76,14 +80,14 @@
         }
       }
     },
-    "C:\\Users\\JP\\Documents\\kropkaNet\\cebula\\src\\Detector.Core\\Detector.Core.csproj": {
+    "C:\\Users\\JP\\Documents\\kropkaNet\\PP\\src\\Detector.Core\\Detector.Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\JP\\Documents\\kropkaNet\\cebula\\src\\Detector.Core\\Detector.Core.csproj",
+        "projectUniqueName": "C:\\Users\\JP\\Documents\\kropkaNet\\PP\\src\\Detector.Core\\Detector.Core.csproj",
         "projectName": "Detector.Core",
-        "projectPath": "C:\\Users\\JP\\Documents\\kropkaNet\\cebula\\src\\Detector.Core\\Detector.Core.csproj",
+        "projectPath": "C:\\Users\\JP\\Documents\\kropkaNet\\PP\\src\\Detector.Core\\Detector.Core.csproj",
         "packagesPath": "C:\\Users\\JP\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\JP\\Documents\\kropkaNet\\cebula\\src\\Detector.Core\\obj\\",
+        "outputPath": "C:\\Users\\JP\\Documents\\kropkaNet\\PP\\src\\Detector.Core\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -134,14 +138,14 @@
         }
       }
     },
-    "C:\\Users\\JP\\Documents\\kropkaNet\\cebula\\src\\Detector.Infrastructure\\Detector.Infrastructure.csproj": {
+    "C:\\Users\\JP\\Documents\\kropkaNet\\PP\\src\\Detector.Infrastructure\\Detector.Infrastructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\JP\\Documents\\kropkaNet\\cebula\\src\\Detector.Infrastructure\\Detector.Infrastructure.csproj",
+        "projectUniqueName": "C:\\Users\\JP\\Documents\\kropkaNet\\PP\\src\\Detector.Infrastructure\\Detector.Infrastructure.csproj",
         "projectName": "Detector.Infrastructure",
-        "projectPath": "C:\\Users\\JP\\Documents\\kropkaNet\\cebula\\src\\Detector.Infrastructure\\Detector.Infrastructure.csproj",
+        "projectPath": "C:\\Users\\JP\\Documents\\kropkaNet\\PP\\src\\Detector.Infrastructure\\Detector.Infrastructure.csproj",
         "packagesPath": "C:\\Users\\JP\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\JP\\Documents\\kropkaNet\\cebula\\src\\Detector.Infrastructure\\obj\\",
+        "outputPath": "C:\\Users\\JP\\Documents\\kropkaNet\\PP\\src\\Detector.Infrastructure\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -160,8 +164,8 @@
         "frameworks": {
           "netstandard2.0": {
             "projectReferences": {
-              "C:\\Users\\JP\\Documents\\kropkaNet\\cebula\\src\\Detector.Core\\Detector.Core.csproj": {
-                "projectPath": "C:\\Users\\JP\\Documents\\kropkaNet\\cebula\\src\\Detector.Core\\Detector.Core.csproj"
+              "C:\\Users\\JP\\Documents\\kropkaNet\\PP\\src\\Detector.Core\\Detector.Core.csproj": {
+                "projectPath": "C:\\Users\\JP\\Documents\\kropkaNet\\PP\\src\\Detector.Core\\Detector.Core.csproj"
               }
             }
           }
@@ -178,6 +182,10 @@
             "AutoMapper": {
               "target": "Package",
               "version": "[9.0.0, )"
+            },
+            "Autofac": {
+              "target": "Package",
+              "version": "[5.1.3, )"
             },
             "NETStandard.Library": {
               "suppressParent": "All",

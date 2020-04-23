@@ -20,6 +20,14 @@
           "Detector.Tests.dll": {}
         }
       },
+      "Autofac/5.1.3": {
+        "runtime": {
+          "lib/netstandard2.1/Autofac.dll": {
+            "assemblyVersion": "5.1.3.0",
+            "fileVersion": "5.1.3.0"
+          }
+        }
+      },
       "AutoMapper/9.0.0": {
         "dependencies": {
           "Microsoft.CSharp": "4.5.0",
@@ -893,6 +901,7 @@
       "Detector.Infrastructure/1.0.0": {
         "dependencies": {
           "AutoMapper": "9.0.0",
+          "Autofac": "5.1.3",
           "Detector.Core": "1.0.0",
           "Newtonsoft.Json": "12.0.3"
         },
@@ -907,6 +916,13 @@
       "type": "project",
       "serviceable": false,
       "sha512": ""
+    },
+    "Autofac/5.1.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Khi2nQI9mRctblhu+8rNCc6LftpcbWB+3T5E+QC6ous+eu/oAATHl7P6Dv8Y1EZTChBq6DrMqgGI16+6BXM4tA==",
+      "path": "autofac/5.1.3",
+      "hashPath": "autofac.5.1.3.nupkg.sha512"
     },
     "AutoMapper/9.0.0": {
       "type": "package",

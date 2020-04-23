@@ -11,15 +11,17 @@ namespace Detector.Api.Controllers
     public class ImagesController : ControllerBase
     {
         private readonly IImageService _imageService;
-        public ImagesController(IImageService imageService)
+        private readonly ICommandDispatcher _commandDispatcher;
+        public ImagesController(IImageService imageService, ICommandDispatcher commandDispatcher)
         {
+            _commandDispatcher = commandDispatcher;
             _imageService = imageService;
         }
 
         [HttpPost]
         public async Task<IActionResult> Post(AddImage command)
         {
-            await _imageService.AddImage(command.ImageOriginal);
+            await _commandDispatcher.DispatchAsync(command);
             return Ok();
         }
 

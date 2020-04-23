@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "5tbFlQo2qWFhRCT9IdqiE+keNTCV/P5Dj/iiJxPw0G3iHXe520WDS/eTFXliEmLa/NJ8otETRzojKxCltZgrPw==",
+  "dgSpecHash": "nVTtPsM16zDoJp5EC/5A85DyTURbFesdJrBzytC5Oj6PayBcSnA4EvMFSvWfooqQQ46bhhB2welE+52zYBWVCA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\JP\\Documents\\kropkaNet\\cebula\\tests\\Detector.Tests\\Detector.Tests.csproj",
+  "projectFilePath": "C:\\Users\\JP\\Documents\\kropkaNet\\PP\\tests\\Detector.Tests\\Detector.Tests.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\JP\\.nuget\\packages\\autofac\\5.1.3\\autofac.5.1.3.nupkg.sha512",
     "C:\\Users\\JP\\.nuget\\packages\\automapper\\9.0.0\\automapper.9.0.0.nupkg.sha512",
     "C:\\Users\\JP\\.nuget\\packages\\castle.core\\4.4.0\\castle.core.4.4.0.nupkg.sha512",
     "C:\\Users\\JP\\.nuget\\packages\\fluentassertions\\5.10.3\\fluentassertions.5.10.3.nupkg.sha512",

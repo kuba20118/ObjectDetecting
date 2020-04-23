@@ -1,13 +1,15 @@
 {
   "version": 2,
-  "dgSpecHash": "qA09VHJ+RBJNVKFYI/0h4myZHE1M051SKXpR1MRndE9N0Gr8DZSH1fUc5Im8wwhD+dyDAaJrMsUtxC5j6h+ljw==",
+  "dgSpecHash": "ql7RXukXwH3Lk4sy8jjq6tRnkqStT4qHBllNWNMksq3ABwTF8xQO3MNBz2cNJw0f3Obg6qTEnW2G690mwLaa1w==",
   "success": true,
-  "projectFilePath": "C:\\Users\\JP\\Documents\\kropkaNet\\cebula\\src\\Detector.Api\\Detector.Api.csproj",
+  "projectFilePath": "C:\\Users\\JP\\Documents\\kropkaNet\\PP\\src\\Detector.Api\\Detector.Api.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\JP\\.nuget\\packages\\autofac\\5.1.3\\autofac.5.1.3.nupkg.sha512",
+    "C:\\Users\\JP\\.nuget\\packages\\autofac.extensions.dependencyinjection\\6.0.0\\autofac.extensions.dependencyinjection.6.0.0.nupkg.sha512",
     "C:\\Users\\JP\\.nuget\\packages\\automapper\\9.0.0\\automapper.9.0.0.nupkg.sha512",
     "C:\\Users\\JP\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\7.0.0\\automapper.extensions.microsoft.dependencyinjection.7.0.0.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",
-    "C:\\Users\\JP\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\2.0.0\\microsoft.extensions.dependencyinjection.abstractions.2.0.0.nupkg.sha512",
+    "C:\\Users\\JP\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\2.1.0\\microsoft.extensions.dependencyinjection.abstractions.2.1.0.nupkg.sha512",
     "C:\\Users\\JP\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
     "C:\\Users\\JP\\.nuget\\packages\\microsoft.netcore.targets\\1.1.0\\microsoft.netcore.targets.1.1.0.nupkg.sha512",
     "C:\\Users\\JP\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512",

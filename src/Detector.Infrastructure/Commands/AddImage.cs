@@ -1,6 +1,6 @@
 namespace Detector.Infrastructure.Commands
 {
-    public class AddImage
+    public class AddImage : ICommand
     {
         public byte[] ImageOriginal { get; set; }
     }

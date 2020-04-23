@@ -1,0 +1,9 @@
+C:\Users\JP\Documents\kropkaNet\cebula\src\Detector.Core\bin\Debug\netstandard2.0\Detector.Core.deps.json
+C:\Users\JP\Documents\kropkaNet\cebula\src\Detector.Core\bin\Debug\netstandard2.0\Detector.Core.dll
+C:\Users\JP\Documents\kropkaNet\cebula\src\Detector.Core\bin\Debug\netstandard2.0\Detector.Core.pdb
+C:\Users\JP\Documents\kropkaNet\cebula\src\Detector.Core\obj\Debug\netstandard2.0\Detector.Core.csprojAssemblyReference.cache
+C:\Users\JP\Documents\kropkaNet\cebula\src\Detector.Core\obj\Debug\netstandard2.0\Detector.Core.csproj.CoreCompileInputs.cache
+C:\Users\JP\Documents\kropkaNet\cebula\src\Detector.Core\obj\Debug\netstandard2.0\Detector.Core.AssemblyInfoInputs.cache
+C:\Users\JP\Documents\kropkaNet\cebula\src\Detector.Core\obj\Debug\netstandard2.0\Detector.Core.AssemblyInfo.cs
+C:\Users\JP\Documents\kropkaNet\cebula\src\Detector.Core\obj\Debug\netstandard2.0\Detector.Core.dll
+C:\Users\JP\Documents\kropkaNet\cebula\src\Detector.Core\obj\Debug\netstandard2.0\Detector.Core.pdb

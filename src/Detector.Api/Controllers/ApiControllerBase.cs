@@ -8,7 +8,7 @@ namespace Detector.Api.Controllers
     {
         protected readonly ICommandDispatcher CommandDispatcher;
 
-        protected ApiControllerBase(CommandDispatcher commandDispatcher)
+        protected ApiControllerBase(ICommandDispatcher commandDispatcher)
         {
             CommandDispatcher = commandDispatcher;
         }

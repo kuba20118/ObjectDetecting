@@ -10,7 +10,7 @@ namespace Detector.Api.Controllers
     public class ImagesController : ApiControllerBase
     {
         private readonly IImageService _imageService;
-        public ImagesController(IImageService imageService, CommandDispatcher commandDispatcher) : base(commandDispatcher)
+        public ImagesController(IImageService imageService, ICommandDispatcher commandDispatcher) : base(commandDispatcher)
         {
             _imageService = imageService;
         }

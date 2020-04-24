@@ -5,7 +5,7 @@ using Detector.Core.Domain;
 
 namespace Detector.Core.Repositories
 {
-    public interface IImageRepository
+    public interface IImageRepository : IRepository
     {
         Task AddAsync(Image image);
         Task<Image> GetAsync(Guid id);

@@ -17,6 +17,8 @@ using AutoMapper;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Detector.Infrastructure.IoC.CommandModules;
+using Detector.Infrastructure.IoC.Modules;
+using Detector.Infrastructure.IoC;
 
 namespace Detector.Api
 {
@@ -41,7 +43,7 @@ namespace Detector.Api
 
             var builder = new ContainerBuilder();
             builder.Populate(services);
-            builder.RegisterModule<CommandModule>();
+            builder.RegisterModule(new ContainerModule(Configuration));
             ApplicationContainer = builder.Build();
 
             return new AutofacServiceProvider(ApplicationContainer);

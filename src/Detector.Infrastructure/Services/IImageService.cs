@@ -5,7 +5,7 @@ using Detector.Infrastructure.Dtos;
 
 namespace Detector.Infrastructure.Services
 {
-    public interface IImageService
+    public interface IImageService : IService
     {
         Task<ImageDto> GetImage(Guid guid);
         Task<IEnumerable<ImageDto>> GetAll();

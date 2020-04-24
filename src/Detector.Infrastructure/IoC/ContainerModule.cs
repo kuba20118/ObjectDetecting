@@ -16,7 +16,7 @@ namespace Detector.Infrastructure.IoC
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterModule<CommandModule>();
-            builder.RegisterModule( new SettingsModule(_configuration));
+            builder.RegisterModule(new SettingsModule(_configuration));
             builder.RegisterModule<ServiceModule>();
             builder.RegisterModule<RepositoryModule>();
         }

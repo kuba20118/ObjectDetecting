@@ -11,10 +11,8 @@ namespace Detector.Api.Controllers
     public class ImagesController : ApiControllerBase
     {
         private readonly IImageService _imageService;
-        private readonly GeneralSettings _settings;
-        public ImagesController(IImageService imageService, ICommandDispatcher commandDispatcher, GeneralSettings settings) : base(commandDispatcher)
+        public ImagesController(IImageService imageService, ICommandDispatcher commandDispatcher) : base(commandDispatcher)
         {
-            _settings = settings;
             _imageService = imageService;
         }
 
@@ -28,10 +26,8 @@ namespace Detector.Api.Controllers
         [HttpGet("{guid}")]
         public async Task<IActionResult> Get(Guid guid)
         {  
-            System.Console.WriteLine(_settings.Name);
             var image = await _imageService.GetImage(guid);
-            return Ok(new { image, _settings.Name});
-            //return Created(Get)
+            return Ok(image);
         }
     }
 }

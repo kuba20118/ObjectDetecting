@@ -25,7 +25,7 @@ namespace Detector.Core.Domain
         {
             if(image == null || image.LongLength <= 0)
             {
-                throw new Exception("Niepoprawny obraz");
+                throw new DomainException(ErrorCodes.InvalidImage, "Niepoprawny obraz");
             }
 
             if(ImageOriginal == image)

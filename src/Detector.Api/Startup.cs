@@ -19,6 +19,7 @@ using Autofac.Extensions.DependencyInjection;
 using Detector.Infrastructure.IoC.CommandModules;
 using Detector.Infrastructure.IoC.Modules;
 using Detector.Infrastructure.IoC;
+using Detector.Api.Framework;
 
 namespace Detector.Api
 {
@@ -41,8 +42,8 @@ namespace Detector.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
-            services.AddScoped<IImageService, ImageService>();
-            services.AddScoped<IImageRepository, ImageRepositoryTemporary>();
+            //services.AddScoped<IImageService, ImageService>();
+            //services.AddScoped<IImageRepository, ImageRepositoryTemporary>();
             services.AddControllers();
             services.AddAutoMapper(typeof(Startup));
             //services.AddMvc();
@@ -63,11 +64,7 @@ namespace Detector.Api
             }
 
             app.UseRouting();
-
-            app.UseAuthorization();
-
-            //app.UseMvc();
-
+            app.UseCustomExceptionHandler();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

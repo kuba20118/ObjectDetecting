@@ -6,6 +6,38 @@
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Microsoft.ML" Version="1.4.0" />
+    <PackageReference Include="Microsoft.ML.ImageAnalytics" Version="1.4.0" />
+    <PackageReference Include="Microsoft.ML.OnnxTransformer" Version="1.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="assets\images\image1.jpg" />
+    <None Remove="assets\images\image2.jpg" />
+    <None Remove="assets\images\image3.jpg" />
+    <None Remove="assets\images\image4.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="assets\images\image1.jpg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="assets\images\image2.jpg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="assets\images\image3.jpg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="assets\images\image4.jpg">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="assets\Model\" />
+  </ItemGroup>
+
 </Project>
 
 

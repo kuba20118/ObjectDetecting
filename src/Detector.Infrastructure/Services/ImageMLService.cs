@@ -22,7 +22,6 @@ namespace Detector.Infrastructure.Services
         public ImageMLService(IObjectDetectionService ObjectDetectionService, IImageFileWriter imageWriter) //When using DI/IoC (IImageFileWriter imageWriter)
         {
             _imageWriter = imageWriter;
-            //Get injected dependencies
             _objectDetectionService = ObjectDetectionService;
             _imagesTmpFolder = Path.GetFullPath(@"../Detector.Infrastructure/ImagesTemp");
             System.Console.WriteLine(_imagesTmpFolder);

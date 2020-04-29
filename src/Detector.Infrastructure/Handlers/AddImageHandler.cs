@@ -6,16 +6,19 @@ namespace Detector.Infrastructure.Handlers
 {
     public class AddImageHandler : ICommandHandler<AddImage>
     {
+        private readonly IImageMLService _imageMLService;
         private readonly IImageService _imageService;
 
-        public AddImageHandler(IImageService imageService)
+        public AddImageHandler(IImageMLService imageMLService, IImageService imageService)
         {
             _imageService = imageService;
+            _imageMLService = imageMLService;
         }
 
         public async Task HandleAsync(AddImage command)
         {
-            //await _imageService.AddImage(command.ImageOriginal);
+            await _imageMLService.IdentifyObjects(command.ImageOriginal);
+            await _imageService.AddImage(command.ImageOriginal);
         }
     }
 }

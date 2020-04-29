@@ -21,10 +21,10 @@ namespace Detector.Api.Controllers
         }
 
         [HttpPost("add")]
-        public async Task<IActionResult> Post([FromForm(Name = "File")] IFormFile command)
+        public async Task<IActionResult> Post([FromForm(Name = "File")] AddImage command)
         {
-            //await CommandDispatcher.DispatchAsync(command);
-            return Ok( await _test.IdentifyObjects(command));
+            await CommandDispatcher.DispatchAsync(command);
+            return Ok();
         }
 
         [HttpGet("{guid}")]

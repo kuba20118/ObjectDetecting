@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Detector.Infrastructure.Dtos;
+using Microsoft.AspNetCore.Http;
 
 namespace Detector.Infrastructure.Services
 {
@@ -9,6 +10,6 @@ namespace Detector.Infrastructure.Services
     {
         Task<ImageDto> GetImage(Guid guid);
         Task<IEnumerable<ImageDto>> GetAll();
-        Task AddImage(byte[] image);
+        Task AddImage(IFormFile image);
     }
 }

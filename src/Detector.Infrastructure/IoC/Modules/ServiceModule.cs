@@ -12,10 +12,12 @@ namespace Detector.Infrastructure.IoC.Modules
                 .GetTypeInfo()
                 .Assembly;
 
+            
             builder.RegisterAssemblyTypes(assembly)
                 .Where(x => x.IsAssignableTo<IService>())
                 .AsImplementedInterfaces()
                 .InstancePerLifetimeScope();
+                
         }
     }
-}
+} 

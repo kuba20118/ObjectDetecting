@@ -20,13 +20,21 @@ using Detector.Infrastructure.IoC.CommandModules;
 using Detector.Infrastructure.IoC.Modules;
 using Detector.Infrastructure.IoC;
 using Detector.Api.Framework;
+using OnnxObjectDetectionWeb.Services;
+using OnnxObjectDetectionWeb.Utilities;
+using OnnxObjectDetection;
+using OnnxObjectDetectionWeb.Infrastructure;
+using Microsoft.Extensions.ML;
 
 namespace Detector.Api
 {
     public class Startup
     {
         public IConfiguration Configuration { get; }
-        public IContainer ApplicationContainer { get; private set;}
+        public IContainer ApplicationContainer { get; private set; }
+
+        private readonly string _onnxModelFilePath;
+        private readonly string _mlnetModelFilePath;
         public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
             Configuration = configuration;
@@ -36,6 +44,13 @@ namespace Detector.Api
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
                 .AddEnvironmentVariables();
             Configuration = builder.Build();
+
+            _onnxModelFilePath = CommonHelpers.GetAbsolutePath(Configuration["MLModel:OnnxModelFilePath"]);
+            _mlnetModelFilePath = CommonHelpers.GetAbsolutePath(Configuration["MLModel:MLNETModelFilePath"]);
+
+            var onnxModelConfigurator = new OnnxModelConfigurator(new TinyYoloModel(_onnxModelFilePath));
+
+            onnxModelConfigurator.SaveMLNetModel(_mlnetModelFilePath);
         }
 
 
@@ -47,10 +62,17 @@ namespace Detector.Api
             services.AddControllers();
             services.AddAutoMapper(typeof(Startup));
             //services.AddMvc();
+            services.AddTransient<IImageFileWriter, ImageFileWriter>();
+            services.AddTransient<IObjectDetectionService, ObjectDetectionService>();
+            //services.AddScoped<IImageService, ImageService>();
 
             var builder = new ContainerBuilder();
+            //services.AddScoped<ITestService, TestService>();
+            services.AddPredictionEnginePool<ImageInputData, TinyYoloPrediction>().
+                FromFile(_mlnetModelFilePath);
             builder.Populate(services);
             builder.RegisterModule(new ContainerModule(Configuration));
+            
             ApplicationContainer = builder.Build();
 
             return new AutofacServiceProvider(ApplicationContainer);
@@ -64,13 +86,13 @@ namespace Detector.Api
             }
 
             app.UseRouting();
-            app.UseCustomExceptionHandler();
+            //app.UseCustomExceptionHandler();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
 
-            hostApplicationLifetime.ApplicationStopped.Register( () => ApplicationContainer.Dispose());
+            hostApplicationLifetime.ApplicationStopped.Register(() => ApplicationContainer.Dispose());
         }
     }
 }

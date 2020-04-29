@@ -3,7 +3,7 @@
   <PropertyGroup>
     <AssemblyName>Detector.Core</AssemblyName>
     <PackageId>Detector.Core</PackageId>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>netstandard2.1</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>

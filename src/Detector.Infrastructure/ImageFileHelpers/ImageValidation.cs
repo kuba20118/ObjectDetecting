@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using System.Text;
 
-namespace OnnxObjectDetectionWeb.Infrastructure
+namespace Detector.Infrastructure.ImageFileHelpers
 {
     public static class ImageValidationExtensions
     {
@@ -9,7 +9,7 @@ namespace OnnxObjectDetectionWeb.Infrastructure
         {
             var imageFormat = GetImageFormat(image);
             return imageFormat == ImageFormat.jpeg ||
-                   imageFormat == ImageFormat.png;
+                    imageFormat == ImageFormat.png;
         }
 
         public enum ImageFormat

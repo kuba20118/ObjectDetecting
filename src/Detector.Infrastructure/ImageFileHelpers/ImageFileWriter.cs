@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 
 
-namespace OnnxObjectDetectionWeb.Infrastructure
+namespace Detector.Infrastructure.ImageFileHelpers
 {
     /// <summary>
     /// Interface to use in DI/IoC

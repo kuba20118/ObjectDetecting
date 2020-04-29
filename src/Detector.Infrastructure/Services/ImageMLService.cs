@@ -1,9 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Detector.Infrastructure.ImageFileHelpers;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
-using OnnxObjectDetection;
-using OnnxObjectDetectionWeb.Infrastructure;
-using OnnxObjectDetectionWeb.Services;
-using OnnxObjectDetectionWeb.Utilities;
+using Detector.ML;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -14,14 +12,14 @@ using System.Threading.Tasks;
 
 namespace Detector.Infrastructure.Services
 {
-    public class TestService : ITestService
+    public class ImageMLService : IImageMLService
     {
         private readonly string _imagesTmpFolder;
         private readonly IObjectDetectionService _objectDetectionService;
         private readonly IImageFileWriter _imageWriter;
 
         private string base64String = string.Empty;
-        public TestService(IObjectDetectionService ObjectDetectionService, IImageFileWriter imageWriter) //When using DI/IoC (IImageFileWriter imageWriter)
+        public ImageMLService(IObjectDetectionService ObjectDetectionService, IImageFileWriter imageWriter) //When using DI/IoC (IImageFileWriter imageWriter)
         {
             _imageWriter = imageWriter;
             //Get injected dependencies

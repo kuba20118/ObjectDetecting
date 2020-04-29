@@ -1,6 +1,6 @@
 ﻿using Microsoft.ML.Data;
 
-namespace OnnxObjectDetection
+namespace Detector.ML
 {
     public class TinyYoloPrediction : IOnnxObjectPrediction
     {

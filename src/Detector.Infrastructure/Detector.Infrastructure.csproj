@@ -6,16 +6,16 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="../Detector.Core/Detector.Core.csproj"/>
-    <ProjectReference Include="..\OnnxObjectDetection\Detector.ML.csproj" />
+    <ProjectReference Include="../Detector.Core/Detector.Core.csproj" />
+    <ProjectReference Include="../Detector.ML/Detector.ML.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="AutoMapper" Version="9.0.0"/>
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.3"/>
-    <PackageReference Include="Autofac" Version="5.1.3"/>
-    <PackageReference Include="Microsoft.Extensions.Configuration" Version="3.1.3"/>
-    <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="3.1.3"/>
+    <PackageReference Include="AutoMapper" Version="9.0.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="Autofac" Version="5.1.3" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="3.1.3" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="3.1.3" />
     <PackageReference Include="Microsoft.ML" Version="1.4.0" />
     <PackageReference Include="Microsoft.ML.ImageAnalytics" Version="1.4.0" />
     <PackageReference Include="Microsoft.ML.OnnxTransformer" Version="1.4.0" />

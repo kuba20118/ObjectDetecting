@@ -5,8 +5,6 @@ using Detector.Infrastructure.Services;
 using Detector.Infrastructure.Settings;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using OnnxObjectDetectionWeb.Infrastructure;
-using OnnxObjectDetectionWeb.Services;
 
 namespace Detector.Api.Controllers
 {
@@ -14,9 +12,9 @@ namespace Detector.Api.Controllers
     public class ImagesController : ApiControllerBase
     {
         private readonly IImageService _imageService;
-        private readonly ITestService _test;
+        private readonly IImageMLService _test;
 
-        public ImagesController(IImageService imageService, ICommandDispatcher commandDispatcher, ITestService test) : base(commandDispatcher)
+        public ImagesController(IImageService imageService, ICommandDispatcher commandDispatcher, IImageMLService test) : base(commandDispatcher)
         {
             _imageService = imageService;
             _test = test;

@@ -1,6 +1,6 @@
 ﻿using System.Drawing;
 
-namespace OnnxObjectDetection
+namespace Detector.ML
 {
     public class BoundingBoxDimensions
     {

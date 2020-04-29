@@ -1,9 +1,10 @@
 using System.Threading.Tasks;
+using Detector.Infrastructure.Services;
 using Microsoft.AspNetCore.Http;
 
-namespace OnnxObjectDetectionWeb.Infrastructure
+namespace Detector.Infrastructure.ImageFileHelpers
 {
-    public interface IImageFileWriter
+    public interface IImageFileWriter : IService
     {
         Task<string> UploadImageAsync(IFormFile file, string imagesTempFolder);
         void DeleteImageTempFile(string filePathName);

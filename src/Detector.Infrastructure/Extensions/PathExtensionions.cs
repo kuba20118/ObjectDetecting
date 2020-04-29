@@ -1,13 +1,13 @@
 ﻿using Detector.Infrastructure.Services;
 using System.IO;
 
-namespace OnnxObjectDetectionWeb.Utilities
+namespace Detector.Infrastructure.Extensions
 {
-    public static class CommonHelpers
+    public static class PathExtensionions
     {
         public static string GetAbsolutePath(string relativePath)
         {            
-            FileInfo _dataRoot = new FileInfo(typeof(TestService).Assembly.Location);
+            FileInfo _dataRoot = new FileInfo(typeof(ImageMLService).Assembly.Location);
             string assemblyFolderPath = _dataRoot.Directory.FullName;
 
             string fullPath = Path.Combine(assemblyFolderPath, relativePath);

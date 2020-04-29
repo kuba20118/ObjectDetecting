@@ -3,16 +3,11 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using OnnxObjectDetection;
+using Detector.ML;
+using Detector.Infrastructure.Services;
 
-namespace OnnxObjectDetectionWeb.Services
+namespace Detector.Infrastructure.Services
 {
-    public interface IObjectDetectionService
-    {
-        void DetectObjectsUsingModel(ImageInputData imageInputData);
-        Image DrawBoundingBox(string imageFilePath);
-    }
-
     public class ObjectDetectionService : IObjectDetectionService
     {
         List<BoundingBox> filteredBoxes;

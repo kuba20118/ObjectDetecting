@@ -1,30 +1,19 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Detector.Core.Repositories;
-using Detector.Infrastructure.Repositories;
-using Detector.Infrastructure.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using AutoMapper;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
-using Detector.Infrastructure.IoC.CommandModules;
-using Detector.Infrastructure.IoC.Modules;
 using Detector.Infrastructure.IoC;
-using Detector.Api.Framework;
-using OnnxObjectDetectionWeb.Services;
-using OnnxObjectDetectionWeb.Utilities;
-using OnnxObjectDetection;
-using OnnxObjectDetectionWeb.Infrastructure;
 using Microsoft.Extensions.ML;
+using Detector.Infrastructure.Extensions;
+using Detector.Infrastructure.ImageFileHelpers;
+using Detector.ML.Config;
+using Detector.ML;
+using Detector.Infrastructure.Settings;
 
 namespace Detector.Api
 {
@@ -35,7 +24,9 @@ namespace Detector.Api
 
         private readonly string _onnxModelFilePath;
         private readonly string _mlnetModelFilePath;
-        public Startup(IConfiguration configuration, IWebHostEnvironment env)
+        private readonly MLModelSettings _mLModelSetting;
+
+        public Startup(IConfiguration configuration, IWebHostEnvironment env, MLModelSettings mLModelSetting)
         {
             Configuration = configuration;
             var builder = new ConfigurationBuilder()
@@ -44,11 +35,12 @@ namespace Detector.Api
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
                 .AddEnvironmentVariables();
             Configuration = builder.Build();
+            _mLModelSetting = mLModelSetting;
 
-            _onnxModelFilePath = CommonHelpers.GetAbsolutePath(Configuration["MLModel:OnnxModelFilePath"]);
-            _mlnetModelFilePath = CommonHelpers.GetAbsolutePath(Configuration["MLModel:MLNETModelFilePath"]);
+            _onnxModelFilePath = mLModelSetting.OnnxModelFilePath; //PathExtensionions.GetAbsolutePath(Configuration["MLModel:OnnxModelFilePath"]);
+            _mlnetModelFilePath = mLModelSetting.MLNETModelFilePath; //PathExtensionions.GetAbsolutePath(Configuration["MLModel:MLNETModelFilePath"]);
 
-            var onnxModelConfigurator = new OnnxModelConfigurator(new TinyYoloModel(_onnxModelFilePath));
+            var onnxModelConfigurator = new Detector.ML.Config.OnnxModelConfigurator(new TinyYoloModel(_onnxModelFilePath));
 
             onnxModelConfigurator.SaveMLNetModel(_mlnetModelFilePath);
         }
@@ -57,17 +49,11 @@ namespace Detector.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
-            //services.AddScoped<IImageService, ImageService>();
-            //services.AddScoped<IImageRepository, ImageRepositoryTemporary>();
+
             services.AddControllers();
             services.AddAutoMapper(typeof(Startup));
-            //services.AddMvc();
-            services.AddTransient<IImageFileWriter, ImageFileWriter>();
-            services.AddTransient<IObjectDetectionService, ObjectDetectionService>();
-            //services.AddScoped<IImageService, ImageService>();
 
             var builder = new ContainerBuilder();
-            //services.AddScoped<ITestService, TestService>();
             services.AddPredictionEnginePool<ImageInputData, TinyYoloPrediction>().
                 FromFile(_mlnetModelFilePath);
             builder.Populate(services);

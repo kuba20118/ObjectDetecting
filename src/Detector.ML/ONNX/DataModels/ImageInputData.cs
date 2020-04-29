@@ -1,7 +1,7 @@
 ﻿using Microsoft.ML.Transforms.Image;
 using System.Drawing;
 
-namespace OnnxObjectDetection
+namespace Detector.ML
 {
     public struct ImageSettings
     {

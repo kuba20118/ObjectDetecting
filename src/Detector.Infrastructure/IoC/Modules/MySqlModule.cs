@@ -1,24 +1,27 @@
 using System.Reflection;
 using Autofac;
 using Detector.Infrastructure.Database;
-using Detector.Infrastructure.Services;
 
 namespace Detector.Infrastructure.IoC.Modules
 {
-    public class ServiceModule: Autofac.Module
+    public class MySqlModule : Autofac.Module
     {
         protected override void Load(ContainerBuilder builder)
         {
-            var assembly = typeof(ServiceModule)
+            var assembly = typeof(MySqlModule)
                 .GetTypeInfo()
                 .Assembly;
 
-            
+
             builder.RegisterAssemblyTypes(assembly)
-                .Where(x => x.IsAssignableTo<IService>())
+                .Where(x => x.IsAssignableTo<ISqlRepository>())
                 .AsImplementedInterfaces()
                 .InstancePerLifetimeScope();
-                
+
+            // builder.RegisterAssemblyTypes(assembly)
+            //     .Where(x => x.IsAssignableTo<IDataContext>())
+            //     .AsImplementedInterfaces()
+            //     .InstancePerLifetimeScope();
         }
     }
-} 
+}

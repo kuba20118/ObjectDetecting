@@ -14,6 +14,11 @@ using Detector.Infrastructure.ImageFileHelpers;
 using Detector.ML.Config;
 using Detector.ML;
 using Detector.Infrastructure.Settings;
+using Microsoft.EntityFrameworkCore;
+using Detector.Infrastructure.Repositories;
+using Detector.Core.Repositories;
+using Detector.Infrastructure.Services;
+using Detector.Infrastructure.Database;
 
 namespace Detector.Api
 {
@@ -26,7 +31,7 @@ namespace Detector.Api
         private readonly string _mlnetModelFilePath;
         private readonly MLModelSettings _mLModelSetting;
 
-        public Startup(IConfiguration configuration, IWebHostEnvironment env, MLModelSettings mLModelSetting)
+        public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
             Configuration = configuration;
             var builder = new ConfigurationBuilder()
@@ -35,10 +40,10 @@ namespace Detector.Api
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
                 .AddEnvironmentVariables();
             Configuration = builder.Build();
-            _mLModelSetting = mLModelSetting;
+            //_mLModelSetting = mLModelSetting;
 
-            _onnxModelFilePath = mLModelSetting.OnnxModelFilePath; //PathExtensionions.GetAbsolutePath(Configuration["MLModel:OnnxModelFilePath"]);
-            _mlnetModelFilePath = mLModelSetting.MLNETModelFilePath; //PathExtensionions.GetAbsolutePath(Configuration["MLModel:MLNETModelFilePath"]);
+            _onnxModelFilePath = PathExtensionions.GetAbsolutePath(Configuration["MLModel:OnnxModelFilePath"]);
+            _mlnetModelFilePath = PathExtensionions.GetAbsolutePath(Configuration["MLModel:MLNETModelFilePath"]);
 
             var onnxModelConfigurator = new Detector.ML.Config.OnnxModelConfigurator(new TinyYoloModel(_onnxModelFilePath));
 
@@ -52,13 +57,13 @@ namespace Detector.Api
 
             services.AddControllers();
             services.AddAutoMapper(typeof(Startup));
+            services.AddPredictionEnginePool<ImageInputData, TinyYoloPrediction>()
+                .FromFile(_mlnetModelFilePath);
+            services.AddDbContext<DataContext>(); //(x => x.UseMySql("server=localhost;database=detectordb;user=user;password=password"));
 
             var builder = new ContainerBuilder();
-            services.AddPredictionEnginePool<ImageInputData, TinyYoloPrediction>().
-                FromFile(_mlnetModelFilePath);
             builder.Populate(services);
             builder.RegisterModule(new ContainerModule(Configuration));
-            
             ApplicationContainer = builder.Build();
 
             return new AutofacServiceProvider(ApplicationContainer);

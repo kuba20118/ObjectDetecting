@@ -1,4 +1,6 @@
 using System;
+using System.Drawing;
+using System.IO;
 using System.Threading.Tasks;
 using Detector.Core.DatabaseModel;
 using Detector.Infrastructure.Commands;
@@ -26,8 +28,13 @@ namespace Detector.Api.Controllers
         }
 
         [HttpPost("add")]
-        public async Task<IActionResult> Post([FromForm(Name = "File")] AddImage command)
+        public async Task<IActionResult> Post([FromForm(Name = "File")] IFormFile image)
         {
+            var command = new AddImage
+            {
+                ImageOriginal = image
+            };
+
             await CommandDispatcher.DispatchAsync(command);
             return Ok();
         }
@@ -39,7 +46,7 @@ namespace Detector.Api.Controllers
             var x = new ImageDb
             {
                 Id = Guid.NewGuid(),
-                ImageBytes = new byte[]{10,20,30},
+                ImageBytes = new byte[] { 10, 20, 30 },
                 FileName = "test",
                 Url = "test",
                 PublicId = "test",
@@ -53,7 +60,7 @@ namespace Detector.Api.Controllers
 
         [HttpGet("{guid}")]
         public async Task<IActionResult> Get(Guid guid)
-        {  
+        {
             //var image = await _imageService.GetImage(guid);
             return Ok();
         }

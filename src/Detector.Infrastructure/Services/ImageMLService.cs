@@ -35,6 +35,7 @@ namespace Detector.Infrastructure.Services
 
         public async Task<Result> IdentifyObjects(IFormFile imageFile)
         {
+            
             try
             {
                 MemoryStream imageMemoryStream = new MemoryStream();

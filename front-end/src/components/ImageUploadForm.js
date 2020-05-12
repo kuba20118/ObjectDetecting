@@ -25,9 +25,8 @@ const ImageUploadForm = ({ onUpload, sendImage }) => {
     if (!isSubmitable) {
       return;
     }
-
     const fd = new FormData();
-    fd.append("image", image, image.name);
+    fd.append("File", image, image.name);
     sendImage(fd);
   };
 

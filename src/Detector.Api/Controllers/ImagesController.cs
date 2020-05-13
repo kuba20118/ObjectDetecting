@@ -36,32 +36,15 @@ namespace Detector.Api.Controllers
             };
 
             await CommandDispatcher.DispatchAsync(command);
-            return Ok();
-        }
+            var resultImage = await _imageService.GetImage(command.Id);
 
-        [HttpPost("test")]
-        public async Task<IActionResult> Post()
-        {
-            //var context = new DataContext();
-            var x = new ImageDb
-            {
-                Id = Guid.NewGuid(),
-                ImageBytes = new byte[] { 10, 20, 30 },
-                FileName = "test",
-                Url = "test",
-                PublicId = "test",
-                //Stats = new StatisticsDb()
-            };
-
-            await context.Image.AddAsync(x);
-            await context.SaveChangesAsync();
-            return Ok();
+            return Ok(resultImage);
         }
 
         [HttpGet("{guid}")]
         public async Task<IActionResult> Get(Guid guid)
         {
-            //var image = await _imageService.GetImage(guid);
+            var image = await _imageService.GetImage(guid);
             return Ok();
         }
     }

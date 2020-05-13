@@ -9,6 +9,6 @@ namespace Detector.Infrastructure.Services
 {
     public interface IImageMLService : IService
     {
-        Task<Result> IdentifyObjects(IFormFile imageFile);
+        Task IdentifyObjects(IFormFile imageFile, Guid Id);
     }
 }

@@ -10,6 +10,6 @@ namespace Detector.Infrastructure.Services
     {
         Task<ImageDto> GetImage(Guid guid);
         Task<IEnumerable<ImageDto>> GetAll();
-        Task AddImage(IFormFile image);
+        Task AddImage(byte[] image, Guid id);
     }
 }

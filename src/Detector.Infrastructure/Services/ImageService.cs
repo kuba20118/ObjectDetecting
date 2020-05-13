@@ -24,21 +24,20 @@ namespace Detector.Infrastructure.Services
             _imageRepository = imageRepository;
         }
 
-        public async Task AddImage(IFormFile image)
+        public async Task AddImage(byte[] image, Guid id)
         {
-
             if (image == null || image.Length == 0)
             {
                 throw new Exception("Nieprawidłowy obraz");
             }
-            var guid = Guid.NewGuid();
+            var guid = id;
 
-            MemoryStream imageMemoryStream = new MemoryStream();
-            await image.CopyToAsync(imageMemoryStream);
-            //Check that the image is valid
-            byte[] imageData = imageMemoryStream.ToArray();          
+            // MemoryStream imageMemoryStream = new MemoryStream();
+            // await image.CopyToAsync(imageMemoryStream);
+            // //Check that the image is valid
+            // byte[] imageData = imageMemoryStream.ToArray();          
 
-            var newImage = new Image(guid, imageData);
+            var newImage = new Image(guid, image);
 
             await _imageRepository.AddAsync(newImage);
         }

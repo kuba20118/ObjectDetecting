@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Detector.Core.Domain;
 using Detector.Core.Repositories;
@@ -11,13 +12,15 @@ namespace Detector.Infrastructure.Repositories
     {
         private readonly DataContext _context;
 
+        public List<Image> tempList = new List<Image>();
+
         public ImageRepository(DataContext context)
         {
             _context = context;
         }
         public async Task AddAsync(Image image)
         {
-            throw new NotImplementedException();
+            tempList.Add(image);
         }
 
         public async Task<IEnumerable<Image>> GetAllAsync()
@@ -27,7 +30,7 @@ namespace Detector.Infrastructure.Repositories
 
         public async Task<Image> GetAsync(Guid id)
         {
-            throw new NotImplementedException();
+            return tempList.FirstOrDefault(x => x.Id == id);
         }
 
         public async Task RemoveAsync(Guid id)

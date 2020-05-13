@@ -17,10 +17,12 @@ namespace Detector.Infrastructure.Services
         private readonly string _imagesTmpFolder;
         private readonly IObjectDetectionService _objectDetectionService;
         private readonly IImageFileWriter _imageWriter;
+        private readonly IImageService _imageService;
 
         private string base64String = string.Empty;
-        public ImageMLService(IObjectDetectionService ObjectDetectionService, IImageFileWriter imageWriter) //When using DI/IoC (IImageFileWriter imageWriter)
+        public ImageMLService(IObjectDetectionService ObjectDetectionService, IImageFileWriter imageWriter, IImageService imageService) //When using DI/IoC (IImageFileWriter imageWriter)
         {
+            _imageService = imageService;
             _imageWriter = imageWriter;
             _objectDetectionService = ObjectDetectionService;
             _imagesTmpFolder = Path.GetFullPath(@"../Detector.Infrastructure/ImagesTemp");
@@ -33,9 +35,8 @@ namespace Detector.Infrastructure.Services
             public string imageString { get; set; }
         }
 
-        public async Task<Result> IdentifyObjects(IFormFile imageFile)
+        public async Task IdentifyObjects(IFormFile imageFile, Guid id)
         {
-            
             try
             {
                 MemoryStream imageMemoryStream = new MemoryStream();
@@ -65,19 +66,22 @@ namespace Detector.Infrastructure.Services
                 watch.Stop();
                 var elapsedMs = watch.ElapsedMilliseconds;
 
+                /*temp save*/
                 byte[] imageBytes = Convert.FromBase64String(result.imageString);
                 MemoryStream ms = new MemoryStream(imageBytes);
                 System.Console.WriteLine(imageBytes.Count());
                 Image xx = Image.FromStream(ms, true, true);
                 xx.Save(imageFilePath + "x" + ImageFormat.Jpeg);
 
-                return result;
+                await _imageService.AddImage(imageBytes, id);
+
+                /**/
+
+
             }
             catch (Exception e)
             {
             }
-
-            return null;
         }
 
         private Result DetectAndPaintImage(ImageInputData imageInputData, string imageFilePath)

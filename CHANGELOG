@@ -16,4 +16,7 @@
 -Dostosowanie modelu ML.NET do naszego projektu
 
 *30.04.2020
-- Podłączenie do bazy danych
+-Podłączenie do bazy danych
+
+*12.05.2020
+-Api zwraca przetworzony obraz

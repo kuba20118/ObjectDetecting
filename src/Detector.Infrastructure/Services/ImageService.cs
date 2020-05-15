@@ -24,9 +24,13 @@ namespace Detector.Infrastructure.Services
             _imageRepository = imageRepository;
         }
 
-        public async Task AddImage(byte[] image, Guid id)
+        public async Task AddImage(Guid id, Result result)
         {
-            if (image == null || image.Length == 0)
+            if (result.imageStringOriginal == null || result.imageStringOriginal.Length == 0)
+            {
+                throw new Exception("Nieprawidłowy obraz");
+            }
+            if (result.imageStringProcessed == null || result.imageStringProcessed.Length == 0)
             {
                 throw new Exception("Nieprawidłowy obraz");
             }
@@ -37,7 +41,7 @@ namespace Detector.Infrastructure.Services
             // //Check that the image is valid
             // byte[] imageData = imageMemoryStream.ToArray();          
 
-            var newImage = new Image(guid, image);
+            var newImage = new Image(guid, result.imageStringOriginal, result.imageStringProcessed, result.Description, result.ElapsedTime);
 
             await _imageRepository.AddAsync(newImage);
         }
@@ -50,11 +54,13 @@ namespace Detector.Infrastructure.Services
         public async Task<ImageDto> GetImage(Guid guid)
         {
             var image = await _imageRepository.GetAsync(guid);
-            //return _mapper.Map<ImageDto>(image); 
-            return new ImageDto
-            {
-                ImageOriginal = image.ImageOriginal,
-                Id = image.Id
+            //var imageToReturn = _mapper.Map<ImageDto>(image); 
+
+            return new ImageDto{
+                Id = image.Id,
+                ImageProcessed = image.ImageProcessed,
+                Description = image.Description,
+                ElapsedTime = image.ElapsedTime
             };
         }
     }

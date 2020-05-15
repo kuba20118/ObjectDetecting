@@ -9,6 +9,7 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Detector.Infrastructure.Dtos;
 
 namespace Detector.Infrastructure.Services
 {
@@ -20,6 +21,7 @@ namespace Detector.Infrastructure.Services
         private readonly IImageService _imageService;
 
         private string base64String = string.Empty;
+        private long elapsedMs = 0;
         public ImageMLService(IObjectDetectionService ObjectDetectionService, IImageFileWriter imageWriter, IImageService imageService) //When using DI/IoC (IImageFileWriter imageWriter)
         {
             _imageService = imageService;
@@ -29,11 +31,7 @@ namespace Detector.Infrastructure.Services
             System.Console.WriteLine(_imagesTmpFolder);
         }
 
-
-        public class Result
-        {
-            public string imageString { get; set; }
-        }
+        
 
         public async Task IdentifyObjects(IFormFile imageFile, Guid id)
         {
@@ -64,19 +62,12 @@ namespace Detector.Infrastructure.Services
 
                 //Stop measuring time
                 watch.Stop();
-                var elapsedMs = watch.ElapsedMilliseconds;
+                elapsedMs = watch.ElapsedMilliseconds;
+                
+                result.ElapsedTime = elapsedMs;
+                result.imageStringOriginal = imageData;
 
-                /*temp save*/
-                byte[] imageBytes = Convert.FromBase64String(result.imageString);
-                MemoryStream ms = new MemoryStream(imageBytes);
-                System.Console.WriteLine(imageBytes.Count());
-                Image xx = Image.FromStream(ms, true, true);
-                xx.Save(imageFilePath + "x" + ImageFormat.Jpeg);
-
-                await _imageService.AddImage(imageBytes, id);
-
-                /**/
-
+                await _imageService.AddImage(id, result);
 
             }
             catch (Exception e)
@@ -92,12 +83,12 @@ namespace Detector.Infrastructure.Services
 
             using (MemoryStream m = new MemoryStream())
             {
-                img.Save(m, img.RawFormat);
+                img.Image.Save(m, img.Image.RawFormat);
                 byte[] imageBytes = m.ToArray();
 
                 // Convert byte[] to Base64 String
-                base64String = Convert.ToBase64String(imageBytes);
-                var result = new Result { imageString = base64String };
+                // base64String = Convert.ToBase64String(imageBytes);
+                var result = new Result { imageStringProcessed = imageBytes, Description = img.Description, ElapsedTime = elapsedMs };
                 return result;
             }
         }

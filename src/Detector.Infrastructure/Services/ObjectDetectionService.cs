@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using Detector.ML;
 using Detector.Infrastructure.Services;
+using Detector.Infrastructure.Dtos;
 
 namespace Detector.Infrastructure.Services
 {
@@ -26,13 +27,15 @@ namespace Detector.Infrastructure.Services
             filteredBoxes = outputParser.FilterBoundingBoxes(boundingBoxes, 5, .5F);
         }
 
-        public Image DrawBoundingBox(string imageFilePath)
+        public ProcessedImage DrawBoundingBox(string imageFilePath)
         {
             Image image = Image.FromFile(imageFilePath);
+            var descList = new List<string>();
             var originalHeight = image.Height;
             var originalWidth = image.Width;
             foreach (var box in filteredBoxes)
             {
+                descList.Add(box.Description);
                 //// process output boxes
                 var x = (uint)Math.Max(box.Dimensions.X, 0);
                 var y = (uint)Math.Max(box.Dimensions.Y, 0);
@@ -69,7 +72,14 @@ namespace Detector.Infrastructure.Services
                     thumbnailGraphic.DrawRectangle(pen, x, y, width, height);
                 }
             }
-            return image;
+            
+            var imageToReturn = new ProcessedImage
+            {
+                Image = image,
+                Description = descList
+            };
+            
+            return imageToReturn;
         }
     }
 }

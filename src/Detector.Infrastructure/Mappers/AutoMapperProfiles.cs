@@ -8,9 +8,9 @@ namespace Detector.Infrastructure.Mappers
     {
         public AutoMapperProfiles()
         {
-            CreateMap<Image, ImageDto>().ReverseMap();
-                // .ForMember(dest => dest.ImageProcessed, opt =>
-                //     opt.MapFrom(src => src.ImageOriginal));
+            CreateMap<Image, ImageDto>();
+            CreateMap<ImageDto, Image>();
+
         }
     }
 }

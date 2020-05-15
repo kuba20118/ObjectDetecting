@@ -17,7 +17,7 @@ const ImageUploadContainer = () => {
   const handleImageSend = async (imageData) => {
     setIsLoadingImg(true);
     const res = await sendImage(imageData);
-    const src = `data:image/png;base64,${res.data.imageOriginal}`;
+    const src = `data:image/png;base64,${res.data.imageProcessed}`;
 
     setImagePreviewSrc(src);
     setIsLoadingImg(false);

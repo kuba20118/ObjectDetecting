@@ -12,7 +12,7 @@ namespace Detector.Infrastructure.Repositories
     {
         private readonly DataContext _context;
 
-        public List<Image> tempList = new List<Image>();
+        private static readonly ISet<Image> tempList = new HashSet<Image>();
 
         public ImageRepository(DataContext context)
         {
@@ -24,9 +24,7 @@ namespace Detector.Infrastructure.Repositories
         }
 
         public async Task<IEnumerable<Image>> GetAllAsync()
-        {
-            throw new NotImplementedException();
-        }
+        => tempList;
 
         public async Task<Image> GetAsync(Guid id)
         {

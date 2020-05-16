@@ -36,11 +36,6 @@ namespace Detector.Infrastructure.Services
             }
             var guid = id;
 
-            // MemoryStream imageMemoryStream = new MemoryStream();
-            // await image.CopyToAsync(imageMemoryStream);
-            // //Check that the image is valid
-            // byte[] imageData = imageMemoryStream.ToArray();          
-
             var newImage = new Image(guid, result.imageStringOriginal, result.imageStringProcessed, result.Description, result.ElapsedTime);
 
             await _imageRepository.AddAsync(newImage);
@@ -54,14 +49,9 @@ namespace Detector.Infrastructure.Services
         public async Task<ImageDto> GetImage(Guid guid)
         {
             var image = await _imageRepository.GetAsync(guid);
-            //var imageToReturn = _mapper.Map<ImageDto>(image); 
+            var imageToReturn = _mapper.Map<ImageDto>(image); 
 
-            return new ImageDto{
-                Id = image.Id,
-                ImageProcessed = image.ImageProcessed,
-                Description = image.Description,
-                ElapsedTime = image.ElapsedTime
-            };
+            return imageToReturn;
         }
     }
 }

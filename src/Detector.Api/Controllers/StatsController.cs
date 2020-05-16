@@ -10,8 +10,8 @@ namespace Detector.Api.Controllers
     [Route("[controller]")]
     public class StatsController : ApiControllerBase
     {
-        private readonly StatsService _statsService;
-        protected StatsController(ICommandDispatcher commandDispatcher, StatsService statsService) : base(commandDispatcher)
+        private readonly IStatsService _statsService;
+        public StatsController(ICommandDispatcher commandDispatcher, IStatsService statsService) : base(commandDispatcher)
         {
             _statsService = statsService;
         }

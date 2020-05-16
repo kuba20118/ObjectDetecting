@@ -7,11 +7,9 @@ namespace Detector.Infrastructure.Handlers
     public class AddImageHandler : ICommandHandler<AddImage>
     {
         private readonly IImageMLService _imageMLService;
-        private readonly IImageService _imageService;
 
-        public AddImageHandler(IImageMLService imageMLService, IImageService imageService)
+        public AddImageHandler(IImageMLService imageMLService)
         {
-            _imageService = imageService;
             _imageMLService = imageMLService;
         }
 

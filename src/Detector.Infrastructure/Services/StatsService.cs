@@ -13,6 +13,7 @@ namespace Detector.Infrastructure.Services
         private readonly IMapper _mapper;
         private readonly IStatsRepository _statsRepository;
         private readonly IImageRepository _imageRepository;
+        private readonly IImageService _imageService;
 
         public StatsService(IMapper mapper, IStatsRepository statsRepo, IImageRepository imageRepository)
         {
@@ -23,6 +24,7 @@ namespace Detector.Infrastructure.Services
         public async Task AddStatsToImage(Guid id, Feedback stats)
         {
             var image = await _imageRepository.GetAsync(id);
+            
             if (image == null)
                 throw new Exception("Nie znaleziono odpowiedniego zdjęcia");
                 
@@ -33,7 +35,7 @@ namespace Detector.Infrastructure.Services
         public async Task<StatsDto> GetImageStats(Guid id)
         {
             var stats = await _statsRepository.GetAsync(id);
-            var temp = new StatsDto();
+            var temp = _mapper.Map<StatsDto>(stats);
             return temp;
         }
 

@@ -19,6 +19,7 @@ using Detector.Infrastructure.Repositories;
 using Detector.Core.Repositories;
 using Detector.Infrastructure.Services;
 using Detector.Infrastructure.Database;
+using Detector.Infrastructure.Mappers;
 
 namespace Detector.Api
 {
@@ -56,12 +57,19 @@ namespace Detector.Api
         {
 
             services.AddControllers();
-            services.AddAutoMapper(typeof(Startup));
             services.AddPredictionEnginePool<ImageInputData, TinyYoloPrediction>()
                 .FromFile(_mlnetModelFilePath);
             services.AddDbContext<DataContext>(); //(x => x.UseMySql("server=localhost;database=detectordb;user=user;password=password"));
+            //services.AddAutoMapper(typeof(Startup));
+            var mappingConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new AutoMapperProfiles());
+            });
+            IMapper mapper = mappingConfig.CreateMapper();
+            services.AddSingleton(mapper);
 
             var builder = new ContainerBuilder();
+
             builder.Populate(services);
             builder.RegisterModule(new ContainerModule(Configuration));
             ApplicationContainer = builder.Build();

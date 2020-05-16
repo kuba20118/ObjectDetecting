@@ -9,7 +9,7 @@ namespace Detector.Infrastructure.Repositories
 {
     public class StatsRepository : IStatsRepository
     {
-        public List<Statistics> tempList = new List<Statistics>();
+        private static readonly ISet<Statistics> tempList = new HashSet<Statistics>();
 
         public async Task AddAsync(Statistics statistics)
         {

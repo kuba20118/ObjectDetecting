@@ -18,7 +18,6 @@ namespace Detector.Infrastructure.Handlers
         public async Task HandleAsync(AddImage command)
         {
             await _imageMLService.IdentifyObjects(command.ImageOriginal, command.Id);
-            //await _imageService.AddImage(command.ImageOriginal);
         }
     }
 }

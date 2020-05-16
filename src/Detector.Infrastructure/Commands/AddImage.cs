@@ -6,7 +6,7 @@ namespace Detector.Infrastructure.Commands
 {
     public class AddImage : ICommand
     {
-        public Guid Id { get; set; } = Guid.NewGuid();
+        public Guid Id { get;} = Guid.NewGuid();
         public IFormFile ImageOriginal { get; set; }
     }
 }

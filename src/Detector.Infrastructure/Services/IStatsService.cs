@@ -1,0 +1,15 @@
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Detector.Core.Domain;
+using Detector.Infrastructure.Dtos;
+
+namespace Detector.Infrastructure.Services
+{
+    public interface IStatsService : IService
+    {
+        Task AddStatsToImage(Guid id, Feedback stats);
+        Task<StatsDto> GetImageStats(Guid id);
+        Task<IEnumerable<StatsDto>> GetAllStats();
+    }
+}

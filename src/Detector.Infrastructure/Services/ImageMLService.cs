@@ -88,7 +88,9 @@ namespace Detector.Infrastructure.Services
 
                 // Convert byte[] to Base64 String
                 // base64String = Convert.ToBase64String(imageBytes);
+                
                 var result = new Result { imageStringProcessed = imageBytes, Description = img.Description, ElapsedTime = elapsedMs };
+                
                 return result;
             }
         }

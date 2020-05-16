@@ -17,11 +17,7 @@ namespace Detector.Core.Domain
         {
         }
 
-        public Image(Guid guid,
-        byte[] imageOriginal,
-        byte[] imageProcessed,
-        List<string> description,
-        long time)
+        public Image(Guid guid, byte[] imageOriginal, byte[] imageProcessed, List<string> description, long time)
         {
             Id = guid;
             SetOriginalImage(imageOriginal);
@@ -33,7 +29,7 @@ namespace Detector.Core.Domain
 
         private void SetElapsedTime(long time)
         {
-            if(time > 0)
+            if (time > 0)
                 ElapsedTime = time;
             else
                 ElapsedTime = 0;

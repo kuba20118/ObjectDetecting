@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Detector.Core.Domain;
+using Detector.Infrastructure.Charts;
 using Detector.Infrastructure.Dtos;
 
 namespace Detector.Infrastructure.Services
@@ -10,6 +11,6 @@ namespace Detector.Infrastructure.Services
     {
         Task AddStatsToImage(Guid id, Feedback stats);
         Task<StatsDto> GetImageStats(Guid id);
-        Task<IEnumerable<StatsDto>> GetAllStats();
+        Task<SummaryStats> GetSummaryStats();
     }
 }

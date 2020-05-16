@@ -24,10 +24,10 @@ namespace Detector.Api.Controllers
             return Ok(statsToReturn);
         }
 
-        [HttpGet]
+        [HttpGet("summary")]
         public async Task<IActionResult> Get()
         {
-            var statsToReturn = await _statsService.GetAllStats();
+            var statsToReturn = await _statsService.GetSummaryStats();
             return Ok(statsToReturn);
         }
 

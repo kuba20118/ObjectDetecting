@@ -12,17 +12,13 @@ namespace Detector.Infrastructure.Repositories
         private static readonly ISet<Statistics> tempList = new HashSet<Statistics>();
 
         public async Task AddAsync(Statistics statistics)
-        {
-            tempList.Add(statistics);
-        }
+        => await Task.FromResult(tempList.Add(statistics));
 
         public async Task<IEnumerable<Statistics>> GetAllAsync()
-        {
-            throw new NotImplementedException();
-        }
+        => await Task.FromResult(tempList);
 
         public async Task<Statistics> GetAsync(Guid id)
-        => tempList.FirstOrDefault(x => x.ImageId == id);
+        => await Task.FromResult(tempList.FirstOrDefault(x => x.ImageId == id));
 
 
 

@@ -12,13 +12,16 @@ namespace Detector.Core.Domain
         public List<Tuple<string, int>> FoundObjects { get; protected set; }
         public Feedback FeedbackFromUser { get; protected set; }
         public int NumberOfObjectsFound { get; protected set; }
-        public bool Valid { get; protected set; }
+        public long Time { get; protected set; }
+        public int CritMistakes { get; protected set; }
+        public int AllMistakes { get; protected set; }
 
 
-        public Statistics(Guid imageId, List<string> description, Feedback feedback)
+        public Statistics(Guid imageId, List<string> description, long time, Feedback feedback)
         {
             FoundObjects = new List<Tuple<string, int>>();
             Id = Guid.NewGuid();
+            Time = time;
             SetImageId(imageId);
             SetFoundObjects(description);
             SetFeedback(feedback);
@@ -64,6 +67,8 @@ namespace Detector.Core.Domain
                 throw new DomainException(ErrorCodes.InvalidFeedbackData, "Niepoprawne dane");
             
             FeedbackFromUser = feedback;
+            CritMistakes +=(feedback.Incorrect + feedback.NotFound);
+            AllMistakes +=(CritMistakes + feedback.IncorrectBox + feedback.MultipleFound);
         }
 
         private void SetFoundObjects(List<string> description)
@@ -91,7 +96,6 @@ namespace Detector.Core.Domain
 
                 FoundObjects.Add(new Tuple<string, int>(key, value));
             }
-
             NumberOfObjectsFound = description.Count;
         }
     }

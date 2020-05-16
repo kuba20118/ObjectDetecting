@@ -10,6 +10,9 @@ namespace Detector.Infrastructure.Mappers
         {
             CreateMap<Image, ImageDto>().ReverseMap();
             CreateMap<Statistics,StatsDto>()
+                .ForMember(dest => dest.Correct, opt =>
+                    opt.MapFrom(src => src.FeedbackFromUser.Correct)
+                    )
                 .ForMember(dest => dest.Incorrect, opt =>
                     opt.MapFrom(src => src.FeedbackFromUser.Incorrect)
                     )

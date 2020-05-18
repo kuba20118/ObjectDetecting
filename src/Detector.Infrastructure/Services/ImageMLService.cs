@@ -72,6 +72,7 @@ namespace Detector.Infrastructure.Services
             }
             catch (Exception e)
             {
+                throw new Exception(e.Message);
             }
         }
 

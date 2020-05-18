@@ -21,24 +21,25 @@ namespace Detector.Infrastructure.Repositories
         public async Task AddAsync(Image image)
         {
             tempList.Add(image);
+            await Task.CompletedTask;
         }
 
         public async Task<IEnumerable<Image>> GetAllAsync()
-        => tempList;
+        => await Task.FromResult(tempList);
 
         public async Task<Image> GetAsync(Guid id)
         {
-            return tempList.FirstOrDefault(x => x.Id == id);
+            return await Task.FromResult(tempList.FirstOrDefault(x => x.Id == id));
         }
 
         public async Task RemoveAsync(Guid id)
         {
-            throw new NotImplementedException();
+            await Task.CompletedTask;
         }
 
         public async Task UpdateAsync(Image id)
         {
-            throw new NotImplementedException();
+            await Task.CompletedTask;
         }
     }
 }

@@ -41,10 +41,11 @@ namespace Detector.Infrastructure.Services
             await _imageRepository.AddAsync(newImage);
         }
 
-        public async Task<IEnumerable<ImageDto>> GetAll()
+        public async Task<IEnumerable<Image>> GetAll()
         {
             var images = await _imageRepository.GetAllAsync();
-            return _mapper.Map<IEnumerable<ImageDto>>(images);
+            return images;
+            //return _mapper.Map<IEnumerable<ImageDto>>(images);
         }
         public async Task<ImageDto> GetImage(Guid guid)
         {

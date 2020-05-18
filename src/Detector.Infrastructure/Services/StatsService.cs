@@ -33,6 +33,12 @@ namespace Detector.Infrastructure.Services
             await _statsRepository.AddAsync(statistics);
         }
 
+        public async Task<IEnumerable<Statistics>> GetAll()
+        {
+            var stats = await _statsRepository.GetAllAsync();
+            return stats;
+        }
+
         public async Task<StatsDto> GetImageStats(Guid id)
         {
             var stats = await _statsRepository.GetAsync(id);

@@ -47,5 +47,12 @@ namespace Detector.Api.Controllers
             var image = await _imageService.GetImage(guid);
             return Ok();
         }
+
+        [HttpGet("all")]
+        public async Task<IActionResult> Get()
+        {
+            var images = await _imageService.GetAll();
+            return Ok(images);
+        }
     }
 }

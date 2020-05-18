@@ -6,7 +6,7 @@ namespace Detector.Core.Domain
     public class Image
     {
         public Guid Id { get; protected set; }
-        public Guid StatsId { get; set; }
+       //public Guid StatsId { get; set; }
         public byte[] ImageOriginal { get; protected set; }
         public byte[] ImageProcessed { get; protected set; }
         public List<string> Description { get; set; }

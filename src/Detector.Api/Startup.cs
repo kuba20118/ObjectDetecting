@@ -83,6 +83,8 @@ namespace Detector.Api
             {
                 app.UseDeveloperExceptionPage();
             }
+            var dataInitializer = app.ApplicationServices.GetService<IDataInitializer>();
+            dataInitializer.SeedAsync();
 
             app.UseRouting();
             //app.UseCustomExceptionHandler();

@@ -20,6 +20,7 @@ using Detector.Core.Repositories;
 using Detector.Infrastructure.Services;
 using Detector.Infrastructure.Database;
 using Detector.Infrastructure.Mappers;
+using Detector.Infrastructure.Mongo;
 
 namespace Detector.Api
 {
@@ -41,7 +42,6 @@ namespace Detector.Api
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
                 .AddEnvironmentVariables();
             Configuration = builder.Build();
-            //_mLModelSetting = mLModelSetting;
 
             _onnxModelFilePath = PathExtensionions.GetAbsolutePath(Configuration["MLModel:OnnxModelFilePath"]);
             _mlnetModelFilePath = PathExtensionions.GetAbsolutePath(Configuration["MLModel:MLNETModelFilePath"]);
@@ -59,8 +59,8 @@ namespace Detector.Api
             services.AddControllers();
             services.AddPredictionEnginePool<ImageInputData, TinyYoloPrediction>()
                 .FromFile(_mlnetModelFilePath);
-            services.AddDbContext<DataContext>(); //(x => x.UseMySql("server=localhost;database=detectordb;user=user;password=password"));
-            //services.AddAutoMapper(typeof(Startup));
+            // services.AddEntityFrameworkMySql()
+            //     .AddDbContext<DataContext>(); //(x => x.UseMySql("server=localhost;database=detectordb;user=user;password=password"));
             var mappingConfig = new MapperConfiguration(mc =>
             {
                 mc.AddProfile(new AutoMapperProfiles());
@@ -83,8 +83,9 @@ namespace Detector.Api
             {
                 app.UseDeveloperExceptionPage();
             }
-            var dataInitializer = app.ApplicationServices.GetService<IDataInitializer>();
-            dataInitializer.SeedAsync();
+            MongoConfigurator.Initialize();
+            // var dataInitializer = app.ApplicationServices.GetService<IDataInitializer>();
+            // dataInitializer.SeedAsync();
 
             app.UseRouting();
             //app.UseCustomExceptionHandler();

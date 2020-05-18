@@ -11,13 +11,12 @@ namespace Detector.Infrastructure.IoC
         public ContainerModule(IConfiguration configuration)
         {
             _configuration = configuration;
-
         }
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterModule<CommandModule>();
             builder.RegisterModule<RepositoryModule>();
-            builder.RegisterModule<MySqlModule>();
+            builder.RegisterModule<MongoModule>();
             builder.RegisterModule<ServiceModule>();
             builder.RegisterModule(new SettingsModule(_configuration));
         }

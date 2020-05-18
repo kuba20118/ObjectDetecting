@@ -1,45 +1,36 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Detector.Core.Domain;
 using Detector.Core.Repositories;
 using Detector.Infrastructure.Database;
+using MongoDB.Driver;
+using MongoDB.Driver.Linq;
 
 namespace Detector.Infrastructure.Repositories
 {
-    public class ImageRepository : IImageRepository, ISqlRepository
+    public class ImageRepository : IImageRepository, IMongoRepository
     {
-        private readonly DataContext _context;
+        private readonly IMongoDatabase _database;
+        private IMongoCollection <Image> Images => _database.GetCollection<Image>("Images");
 
-        private static readonly ISet<Image> tempList = new HashSet<Image>();
-
-        public ImageRepository(DataContext context)
+        public ImageRepository(IMongoDatabase database)
         {
-            _context = context;
+            _database = database;
         }
-        public async Task AddAsync(Image image)
-        {
-            tempList.Add(image);
-            await Task.CompletedTask;
-        }
+        public Task AddAsync(Image image)
+            => Images.InsertOneAsync(image);
 
         public async Task<IEnumerable<Image>> GetAllAsync()
-        => await Task.FromResult(tempList);
+            => await Images.AsQueryable().ToListAsync();
 
         public async Task<Image> GetAsync(Guid id)
-        {
-            return await Task.FromResult(tempList.FirstOrDefault(x => x.Id == id));
-        }
+            => await Images.AsQueryable().FirstOrDefaultAsync(x => x.Id == id);
 
         public async Task RemoveAsync(Guid id)
-        {
-            await Task.CompletedTask;
-        }
+            => await Images.DeleteOneAsync(x=> x.Id == id);
 
-        public async Task UpdateAsync(Image id)
-        {
-            await Task.CompletedTask;
-        }
+        public async Task UpdateAsync(Image image)
+            => await Images.ReplaceOneAsync(x=>x.Id == image.Id, image);
     }
 }

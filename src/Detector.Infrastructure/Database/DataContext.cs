@@ -7,9 +7,9 @@ namespace Detector.Infrastructure.Database
 {
     public partial class DataContext : DbContext//, IDataContext
     {
-        private readonly MySqlSettings _settings;
+        private readonly SqlSettings _settings;
 
-        public DataContext(DbContextOptions<DataContext> options, MySqlSettings settings)
+        public DataContext(DbContextOptions<DataContext> options, SqlSettings settings)
             : base(options)
         {
             _settings = settings;

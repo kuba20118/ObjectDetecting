@@ -1,26 +1,33 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Detector.Core.Domain;
 using Detector.Core.Repositories;
+using Detector.Infrastructure.Database;
 
 namespace Detector.Infrastructure.Repositories
 {
     public class StatsRepository : IStatsRepository
     {
-        private static readonly ISet<Statistics> tempList = new HashSet<Statistics>();
+        //private readonly DataContext _context;
+        public StatsRepository()
+        {
+           // _context = context;
+        }
 
-        public async Task AddAsync(Statistics statistics)
-        => await Task.FromResult(tempList.Add(statistics));
+        public Task AddAsync(Statistics statistics)
+        {
+            throw new NotImplementedException();
+        }
 
-        public async Task<IEnumerable<Statistics>> GetAllAsync()
-        => await Task.FromResult(tempList);
+        public Task<IEnumerable<Statistics>> GetAllAsync()
+        {
+            throw new NotImplementedException();
+        }
 
-        public async Task<Statistics> GetAsync(Guid id)
-        => await Task.FromResult(tempList.FirstOrDefault(x => x.ImageId == id));
-
-
-
+        public Task<Statistics> GetAsync(Guid id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

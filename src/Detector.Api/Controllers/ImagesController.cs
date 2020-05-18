@@ -17,14 +17,13 @@ namespace Detector.Api.Controllers
     {
         private readonly IImageService _imageService;
         private readonly IImageMLService _test;
-        private readonly DataContext context;
+       //private readonly DataContext context;
 
-        public ImagesController(IImageService imageService, ICommandDispatcher commandDispatcher, IImageMLService test,
-        DataContext context) : base(commandDispatcher)
+        public ImagesController(IImageService imageService, ICommandDispatcher commandDispatcher, IImageMLService test) : base(commandDispatcher)
         {
             _imageService = imageService;
             _test = test;
-            this.context = context;
+            //this.context = context;
         }
 
         [HttpPost("add")]

@@ -1,6 +1,7 @@
 using Autofac;
 using Detector.Infrastructure.Database;
 using Detector.Infrastructure.Extensions;
+using Detector.Infrastructure.Mongo;
 using Detector.Infrastructure.Settings;
 using Microsoft.Extensions.Configuration;
 
@@ -24,7 +25,7 @@ namespace Detector.Infrastructure.IoC.Modules
                 .SingleInstance();
             builder.RegisterInstance(_configuration.GetSettings<MLModelSettings>())
                 .SingleInstance();
-            builder.RegisterInstance(_configuration.GetSettings<MySqlSettings>())
+            builder.RegisterInstance(_configuration.GetSettings<MongoSettings>())
                 .SingleInstance();
         }
     }

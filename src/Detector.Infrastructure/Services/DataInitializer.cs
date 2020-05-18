@@ -25,6 +25,23 @@ namespace Detector.Infrastructure.Services
             var images = await _imageService.GetAll();
             if (images.Count() > 0)
                 return;
+
+            // var dataString = File.ReadAllText("Services/sampleImageData.json");
+            // var imagesList = JsonConvert.DeserializeObject<List<Image>>(dataString);
+
+            // foreach (var img in imagesList)
+            // {
+            //     var result = new Result
+            //     {
+            //         Description = img.Description,
+            //         ElapsedTime = img.ElapsedTime,
+            //         imageStringOriginal = img.ImageOriginal,
+            //         imageStringProcessed = img.ImageProcessed
+            //     };
+            //     await _imageService.AddImage(img.Id,result);
+
+            //     var feed
+            // }
         }
     }
 }

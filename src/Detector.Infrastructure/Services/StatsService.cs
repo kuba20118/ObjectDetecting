@@ -76,7 +76,8 @@ namespace Detector.Infrastructure.Services
 
             var correctAndAllMistakesChart = new ChartData
             {
-                Key = "Bezbłędne wykrycia",
+                Title = "Bezbłędne wykrycia",
+                Key = "correctAndAllMistakesChart",
                 ChartType = "doughnut",
                 Data = new Tuple<List<string>,List<int>>
                 (
@@ -87,7 +88,8 @@ namespace Detector.Infrastructure.Services
 
             var correctAndSmallMistakesChart = new ChartData
             {
-                Key = "Wykrycia z małoistotnymi błędami",
+                Title = "Wykrycia z małoistotnymi błędami",
+                Key = "correctAndSmallMistakesChart",
                 ChartType = "doughnut",
                 Data = new Tuple<List<string>,List<int>>
                 (
@@ -98,26 +100,27 @@ namespace Detector.Infrastructure.Services
 
             var topMistakes = new ChartData
             {
-                Key = "Najczęsciej występujące błędy",
+                Title = "Najczęsciej występujące błędy",
+                Key = "topMistakes",
                 ChartType = "Bar",
                 Data = Unpack(mistakes)
             };
 
             var topFoundObjects = new ChartData
             {
-                Key = "Najczęsciej wykrywane obiekty",
+                Title = "Najczęsciej wykrywane obiekty",
+                Key = "topFoundObjects",
                 ChartType = "Bar",
                 Data = Unpack(mistakes)
-
             };
 
-            var chartsList = new List<ChartData> { correctAndAllMistakesChart, correctAndSmallMistakesChart };
+            var chartsList = new List<ChartData> { correctAndAllMistakesChart, correctAndSmallMistakesChart, topMistakes, topFoundObjects};
 
             var summaryStats = new SummaryStats
             {
                 AverageTime = averageTime,
                 ChartsData = chartsList,
-                Effectiveness = (foundByMLSum / onlyCorrectSum)
+                Effectiveness = (double)(onlyCorrectSum/foundByMLSum)
             };
 
             return summaryStats;

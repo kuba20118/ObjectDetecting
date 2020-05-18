@@ -13,5 +13,6 @@ namespace Detector.Infrastructure.Services
         Task<StatsDto> GetImageStats(Guid id);
         Task<IEnumerable<Statistics>> GetAll();
         Task<SummaryStats> GetSummaryStats();
+        Task UpdateGeneralStats(Feedback stats);
     }
 }

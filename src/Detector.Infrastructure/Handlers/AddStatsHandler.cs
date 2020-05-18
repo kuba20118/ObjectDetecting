@@ -19,10 +19,13 @@ namespace Detector.Infrastructure.Handlers
         }
         public async Task HandleAsync(AddStats command)
         {
-            //var stats = _mapper.Map<Feedback>(command);
+            var imageStats = await _statsService.GetImageStats(command.ImageId);
+            if(imageStats != null)
+                return;
+
             var stats = new Feedback(command.Correct, command.Incorrect, command.NotFound, command.MultipleFound, command.IncorrectBox);
-            
             await _statsService.AddStatsToImage(command.ImageId, stats);
+            //await _statsService.UpdateSummaryStats(stats);
         }
     }
 }

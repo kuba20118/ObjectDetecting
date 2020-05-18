@@ -72,7 +72,7 @@ namespace Detector.Infrastructure.Services
             var sum4 = allStats.Sum(x => x.FeedbackFromUser.IncorrectBox);
             mistakes.Add(new Tuple<string, int>("Niepoprawne zaznaczenie", sum4));
 
-            mistakes.OrderByDescending(x => x.Item2).ToList();
+            mistakes.Sort((x,y) => y.Item2.CompareTo(x.Item2));
 
             var correctAndAllMistakesChart = new ChartData
             {
@@ -124,6 +124,11 @@ namespace Detector.Infrastructure.Services
             };
 
             return summaryStats;
+        }
+
+        public Task UpdateGeneralStats(Feedback stats)
+        {
+            throw new NotImplementedException();
         }
 
         Tuple<List<A>, List<B>> Unpack<A, B>(List<Tuple<A, B>> list)

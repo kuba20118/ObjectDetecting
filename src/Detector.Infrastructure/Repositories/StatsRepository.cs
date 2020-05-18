@@ -4,30 +4,27 @@ using System.Threading.Tasks;
 using Detector.Core.Domain;
 using Detector.Core.Repositories;
 using Detector.Infrastructure.Database;
+using MongoDB.Driver;
+using MongoDB.Driver.Linq;
 
 namespace Detector.Infrastructure.Repositories
 {
-    public class StatsRepository : IStatsRepository
+    public class StatsRepository : IStatsRepository, IMongoRepository
     {
-        //private readonly DataContext _context;
-        public StatsRepository()
+        private readonly IMongoDatabase _database;
+        private IMongoCollection<Statistics> Stats => _database.GetCollection<Statistics>("Statistics");
+        public StatsRepository(IMongoDatabase database)
         {
-           // _context = context;
+            _database = database;
         }
 
-        public Task AddAsync(Statistics statistics)
-        {
-            throw new NotImplementedException();
-        }
+        public async Task AddAsync(Statistics statistics)
+            => await Stats.InsertOneAsync(statistics);
 
-        public Task<IEnumerable<Statistics>> GetAllAsync()
-        {
-            throw new NotImplementedException();
-        }
+        public async Task<IEnumerable<Statistics>> GetAllAsync()
+            => await Stats.AsQueryable().ToListAsync();
 
-        public Task<Statistics> GetAsync(Guid id)
-        {
-            throw new NotImplementedException();
-        }
+        public async Task<Statistics> GetAsync(Guid id)
+            => await Stats.AsQueryable().FirstOrDefaultAsync(x => x.ImageId == id);
     }
 }

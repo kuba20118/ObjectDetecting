@@ -15,9 +15,11 @@ namespace Detector.Infrastructure.Services
         private readonly IMapper _mapper;
         private readonly IStatsRepository _statsRepository;
         private readonly IImageRepository _imageRepository;
+        private readonly IGeneralStatsRepository _generalStatsRepository;
 
-        public StatsService(IMapper mapper, IStatsRepository statsRepo, IImageRepository imageRepository)
+        public StatsService(IMapper mapper, IStatsRepository statsRepo, IImageRepository imageRepository, IGeneralStatsRepository generalStatsRepository)
         {
+            _generalStatsRepository = generalStatsRepository;
             _statsRepository = statsRepo;
             _imageRepository = imageRepository;
             _mapper = mapper;
@@ -39,50 +41,52 @@ namespace Detector.Infrastructure.Services
             return stats;
         }
 
-        public async Task<StatsDto> GetImageStats(Guid id)
+        public async Task<Statistics> GetImageStats(Guid id)
         {
             var stats = await _statsRepository.GetAsync(id);
             var temp = _mapper.Map<StatsDto>(stats);
-            return temp;
+            return stats;
         }
 
         public async Task<SummaryStats> GetSummaryStats()
         {
-            var allStats = await _statsRepository.GetAllAsync();
-            if (allStats == null || allStats.Count() == 0)
-                return null;
+            // var allStats = await _statsRepository.GetAllAsync();
+            // if (allStats == null || allStats.Count() == 0)
+            //     return null;
 
             var mistakes = new List<Tuple<string, int>>();
-            var averageTime = allStats.Average(x => x.Time);
-            var foundByMLSum = allStats.Sum(x => x.NumberOfObjectsFound);
-            var onlyCorrectSum = allStats.Sum(x => x.FeedbackFromUser.Correct);
-            var allMistakesSum = allStats.Sum(x => x.AllMistakes);
-            var critMistakesSum = allStats.Sum(x => x.CritMistakes);
-            var smallMistakesSum = allMistakesSum - critMistakesSum;
+            // var averageTime = allStats.Average(x => x.Time);
+            // var foundByMLSum = allStats.Sum(x => x.NumberOfObjectsFound);
+            // var onlyCorrectSum = allStats.Sum(x => x.FeedbackFromUser.Correct);
+            // var allMistakesSum = allStats.Sum(x => x.AllMistakes);
+            // var critMistakesSum = allStats.Sum(x => x.CritMistakes);
+            // var smallMistakesSum = allMistakesSum - critMistakesSum;
+            var generalStats = await _generalStatsRepository.GetAsync();
 
-            var sum1 = allStats.Sum(x => x.FeedbackFromUser.Incorrect);
+            var sum1 = generalStats.IncorrectObjectsDetections;
             mistakes.Add(new Tuple<string, int>("Niepoprawnie wykryty obiekt", sum1));
 
-            var sum2 = allStats.Sum(x => x.FeedbackFromUser.NotFound);
+            var sum2 = generalStats.NotFoundObjects;
             mistakes.Add(new Tuple<string, int>("Nieznaleziony obiekt", sum2));
 
-            var sum3 = allStats.Sum(x => x.FeedbackFromUser.MultipleFound);
+            var sum3 = generalStats.MultipleObjectsDetections;
             mistakes.Add(new Tuple<string, int>("Wielokrotnie znaleziony obiekt", sum3));
 
-            var sum4 = allStats.Sum(x => x.FeedbackFromUser.IncorrectBox);
+            var sum4 = generalStats.IncorrectBoxDetections;
             mistakes.Add(new Tuple<string, int>("Niepoprawne zaznaczenie", sum4));
 
-            mistakes.Sort((x,y) => y.Item2.CompareTo(x.Item2));
+            mistakes.Sort((x, y) => y.Item2.CompareTo(x.Item2));
+
 
             var correctAndAllMistakesChart = new ChartData
             {
                 Title = "Bezbłędne wykrycia",
                 Key = "correctAndAllMistakesChart",
                 ChartType = "doughnut",
-                Data = new Tuple<List<string>,List<int>>
+                Data = new Tuple<List<string>, List<int>>
                 (
                     new List<string> { "Poprawne", "Niepoprawne" },
-                    new List<int> { onlyCorrectSum, allMistakesSum }
+                    new List<int> { generalStats.CorrectObjectsDetections, generalStats.AllMistakes }
                 )
             };
 
@@ -91,11 +95,11 @@ namespace Detector.Infrastructure.Services
                 Title = "Wykrycia z małoistotnymi błędami",
                 Key = "correctAndSmallMistakesChart",
                 ChartType = "doughnut",
-                Data = new Tuple<List<string>,List<int>>
+                Data = new Tuple<List<string>, List<int>>
                 (
                     new List<string> { "Poprawne", "Niepoprawne" },
-                    new List<int> { onlyCorrectSum, smallMistakesSum }
-                )             
+                    new List<int> { generalStats.CorrectObjectsDetections, generalStats.SmallMistakes }
+                )
             };
 
             var topMistakes = new ChartData
@@ -114,21 +118,27 @@ namespace Detector.Infrastructure.Services
                 Data = Unpack(mistakes)
             };
 
-            var chartsList = new List<ChartData> { correctAndAllMistakesChart, correctAndSmallMistakesChart, topMistakes, topFoundObjects};
+            var chartsList = new List<ChartData> { correctAndAllMistakesChart, correctAndSmallMistakesChart, topMistakes, topFoundObjects };
 
             var summaryStats = new SummaryStats
             {
-                AverageTime = averageTime,
+                AverageTime = generalStats.AverageTime,
                 ChartsData = chartsList,
-                Effectiveness = (double)(onlyCorrectSum/foundByMLSum)
+                Effectiveness = (double)(generalStats.CorrectObjectsDetections / generalStats.ObjectsFoundByML)
             };
 
             return summaryStats;
         }
 
-        public Task UpdateGeneralStats(Feedback stats)
+        public async Task UpdateGeneralStats(Guid id, Feedback stats)
         {
-            throw new NotImplementedException();
+            var generalStats = await _generalStatsRepository.GetAsync();
+            if (generalStats == null || generalStats.Time == 0)
+                await _generalStatsRepository.CreateAsync();
+
+            var imageStats = await _statsRepository.GetAsync(id);
+
+            await _generalStatsRepository.UpdateAsync(stats, imageStats.NumberOfObjectsFound, imageStats.FoundObjects, imageStats.Time);
         }
 
         Tuple<List<A>, List<B>> Unpack<A, B>(List<Tuple<A, B>> list)

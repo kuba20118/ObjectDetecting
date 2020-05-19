@@ -44,7 +44,7 @@ namespace Detector.Api.Controllers
         public async Task<IActionResult> Get(Guid guid)
         {
             var image = await _imageService.GetImage(guid);
-            return Ok();
+            return Ok(image);
         }
 
         [HttpGet("all")]

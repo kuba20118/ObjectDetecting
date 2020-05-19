@@ -10,9 +10,9 @@ namespace Detector.Infrastructure.Services
     public interface IStatsService : IService
     {
         Task AddStatsToImage(Guid id, Feedback stats);
-        Task<StatsDto> GetImageStats(Guid id);
+        Task<Statistics> GetImageStats(Guid id);
         Task<IEnumerable<Statistics>> GetAll();
         Task<SummaryStats> GetSummaryStats();
-        Task UpdateGeneralStats(Feedback stats);
+        Task UpdateGeneralStats(Guid id, Feedback stats);
     }
 }

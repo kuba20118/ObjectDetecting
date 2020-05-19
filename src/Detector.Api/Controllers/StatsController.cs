@@ -34,9 +34,12 @@ namespace Detector.Api.Controllers
         [HttpGet("all")]
         public async Task<IActionResult> GetAll()
         {
-            var statsToReturn = await _statsService.GetAll();
+            //var statsToReturn = await _statsService.GetAll();
+            var statsToReturn = await _statsService.GetSummaryStats();
             return Ok(statsToReturn);
         }
+
+
 
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(Guid id)

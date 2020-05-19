@@ -25,7 +25,7 @@ namespace Detector.Infrastructure.Handlers
 
             var stats = new Feedback(command.Correct, command.Incorrect, command.NotFound, command.MultipleFound, command.IncorrectBox);
             await _statsService.AddStatsToImage(command.ImageId, stats);
-            //await _statsService.UpdateSummaryStats(stats);
+            await _statsService.UpdateGeneralStats(command.ImageId, stats);
         }
     }
 }

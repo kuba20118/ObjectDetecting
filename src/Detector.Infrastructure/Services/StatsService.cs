@@ -47,35 +47,25 @@ namespace Detector.Infrastructure.Services
             var temp = _mapper.Map<StatsDto>(stats);
             return stats;
         }
-
         public async Task<SummaryStats> GetSummaryStats()
         {
-            // var allStats = await _statsRepository.GetAllAsync();
-            // if (allStats == null || allStats.Count() == 0)
-            //     return null;
-
-            var mistakes = new List<Tuple<string, int>>();
-            // var averageTime = allStats.Average(x => x.Time);
-            // var foundByMLSum = allStats.Sum(x => x.NumberOfObjectsFound);
-            // var onlyCorrectSum = allStats.Sum(x => x.FeedbackFromUser.Correct);
-            // var allMistakesSum = allStats.Sum(x => x.AllMistakes);
-            // var critMistakesSum = allStats.Sum(x => x.CritMistakes);
-            // var smallMistakesSum = allMistakesSum - critMistakesSum;
             var generalStats = await _generalStatsRepository.GetAsync();
-
-            var sum1 = generalStats.IncorrectObjectsDetections;
-            mistakes.Add(new Tuple<string, int>("Niepoprawnie wykryty obiekt", sum1));
-
-            var sum2 = generalStats.NotFoundObjects;
-            mistakes.Add(new Tuple<string, int>("Nieznaleziony obiekt", sum2));
-
-            var sum3 = generalStats.MultipleObjectsDetections;
-            mistakes.Add(new Tuple<string, int>("Wielokrotnie znaleziony obiekt", sum3));
-
-            var sum4 = generalStats.IncorrectBoxDetections;
-            mistakes.Add(new Tuple<string, int>("Niepoprawne zaznaczenie", sum4));
-
+            var mistakes = new List<Tuple<string, int>>
+            {
+                new Tuple<string, int>("Niepoprawnie wykryty obiekt", generalStats.IncorrectObjectsDetections),
+                new Tuple<string, int>("Nieznaleziony obiekt", generalStats.NotFoundObjects ),
+                new Tuple<string, int>("Wielokrotnie znaleziony obiekt", generalStats.MultipleObjectsDetections ),
+                new Tuple<string, int>("Niepoprawne zaznaczenie", generalStats.IncorrectBoxDetections)
+            };
             mistakes.Sort((x, y) => y.Item2.CompareTo(x.Item2));
+
+            var labelList = new List<string>();
+            var valueList = new List<int>();
+            foreach (var item in generalStats.ObjectsFound.Take(10))
+            {
+                labelList.Add(item.Key);
+                valueList.Add(item.Value);
+            }
 
 
             var correctAndAllMistakesChart = new ChartData
@@ -115,7 +105,11 @@ namespace Detector.Infrastructure.Services
                 Title = "Najczęsciej wykrywane obiekty",
                 Key = "topFoundObjects",
                 ChartType = "Bar",
-                Data = Unpack(mistakes)
+                Data = new Tuple<List<string>, List<int>>
+                (
+                    labelList,
+                    valueList
+                )
             };
 
             var chartsList = new List<ChartData> { correctAndAllMistakesChart, correctAndSmallMistakesChart, topMistakes, topFoundObjects };
@@ -124,7 +118,7 @@ namespace Detector.Infrastructure.Services
             {
                 AverageTime = generalStats.AverageTime,
                 ChartsData = chartsList,
-                Effectiveness = (double)(generalStats.CorrectObjectsDetections / generalStats.ObjectsFoundByML)
+                Effectiveness =  (double)generalStats.CorrectObjectsDetections / (generalStats.ObjectsFoundByML + generalStats.NotFoundObjects)
             };
 
             return summaryStats;

@@ -9,7 +9,7 @@ namespace Detector.Core.Domain
     {
         public Guid Id { get; protected set; }
         public Guid ImageId { get; protected set; }
-        public List<Tuple<string, int>> FoundObjects { get; protected set; }
+        public List<string> FoundObjects { get; protected set; }
         public Feedback FeedbackFromUser { get; protected set; }
         public int NumberOfObjectsFound { get; protected set; }
         public long Time { get; protected set; }
@@ -19,7 +19,7 @@ namespace Detector.Core.Domain
 
         public Statistics(Guid imageId, List<string> description, long time, Feedback feedback)
         {
-            FoundObjects = new List<Tuple<string, int>>();
+            FoundObjects = new List<string>();
             Id = Guid.NewGuid();
             Time = time;
             SetImageId(imageId);
@@ -83,18 +83,7 @@ namespace Detector.Core.Domain
             foreach (var obj in description)
             {
                 var key = obj.Split('(').First();
-                var content = obj.Split('(', '%')[1];
-
-                int value;
-                if (!Int32.TryParse(content, out value))
-                    throw new DomainException(ErrorCodes.InvalidDataFoundByML, "Nieprawidłowe dane");
-
-
-                if (value < 0)
-                    throw new DomainException(ErrorCodes.InvalidDataFoundByML, "Nieprawidłowe dane");
-
-
-                FoundObjects.Add(new Tuple<string, int>(key, value));
+                FoundObjects.Add(key);
             }
             NumberOfObjectsFound = description.Count;
         }

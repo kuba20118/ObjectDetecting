@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Detector.Core.Domain;
 using Detector.Core.Repositories;
@@ -21,9 +22,9 @@ namespace Detector.Infrastructure.Repositories
             => await GeneralStats.InsertOneAsync(new GeneralStats());
 
         public async Task<GeneralStats> GetAsync()
-            => await GeneralStats.AsQueryable().FirstOrDefaultAsync(x=>x.Key == "GeneralStats");
+            => await GeneralStats.AsQueryable().FirstOrDefaultAsync(x => x.Key == "GeneralStats");
 
-        public async Task UpdateAsync(Feedback feedback, int numberOfObjects, List<Tuple<string, int>> foundObjects, long time)
+        public async Task UpdateAsync(Feedback feedback, int numberOfObjects, List<string> foundObjects, long time)
         {
             var stats = await GetAsync();
 
@@ -37,15 +38,25 @@ namespace Detector.Infrastructure.Repositories
             //from ml
             stats.ObjectsFoundByML += numberOfObjects;
             stats.Time += time;
+            foreach (var obj in foundObjects)
+            {
+                if (stats.ObjectsFound.ContainsKey(obj))
+                    stats.ObjectsFound[obj]++;
+                else
+                    stats.ObjectsFound.Add(obj, 1);
+            }
+            stats.ObjectsFound.OrderBy(x => x.Value);
 
             //rest
             stats.SmallMistakes += (feedback.MultipleFound + feedback.IncorrectBox);
             stats.CriticalMistakes += (feedback.NotFound + feedback.Incorrect);
             stats.AllMistakes += (feedback.MultipleFound + feedback.IncorrectBox + feedback.NotFound + feedback.Incorrect);
             stats.Detections++;
-            stats.AverageTime = stats.Time/stats.Detections;
+            stats.AverageTime = stats.Time / stats.Detections;
 
-            await GeneralStats.ReplaceOneAsync(x=>x.Key == "GeneralStats", stats);
+            await GeneralStats.ReplaceOneAsync(x => x.Key == "GeneralStats", stats);
         }
+
+
     }
 }

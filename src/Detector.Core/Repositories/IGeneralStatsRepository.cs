@@ -8,7 +8,7 @@ namespace Detector.Core.Repositories
     public interface IGeneralStatsRepository : IRepository
     {
         Task CreateAsync();
-        Task UpdateAsync(Feedback feedback, int numberOfObjects, List<Tuple<string,int>> foundObjects, long time);
+        Task UpdateAsync(Feedback feedback, int numberOfObjects, List<string> foundObjects, long time);
         Task<GeneralStats> GetAsync();
     }
 }

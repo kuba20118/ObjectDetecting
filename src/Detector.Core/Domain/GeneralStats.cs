@@ -20,11 +20,13 @@ namespace Detector.Core.Domain
         public int IncorrectBoxDetections { get; set; }     
         public long Time { get; set; }
         public long AverageTime { get; set; }
-
+        
+        public Dictionary<string,int> ObjectsFound { get; set; }
 
         public GeneralStats()
         {
             Id = Guid.NewGuid();
+            ObjectsFound = new Dictionary<string, int>();
         }
     }
 

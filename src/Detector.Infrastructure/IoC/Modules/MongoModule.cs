@@ -26,7 +26,7 @@ namespace Detector.Infrastructure.IoC.Modules
                 return database;
             }).As<IMongoDatabase>();
 
-            var assembly = typeof(MySqlModule)
+            var assembly = typeof(MongoModule)
                 .GetTypeInfo()
                 .Assembly;
 

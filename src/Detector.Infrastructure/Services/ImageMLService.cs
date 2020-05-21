@@ -28,7 +28,6 @@ namespace Detector.Infrastructure.Services
             _imageWriter = imageWriter;
             _objectDetectionService = ObjectDetectionService;
             _imagesTmpFolder = Path.GetFullPath(@"../Detector.Infrastructure/ImagesTemp");
-            System.Console.WriteLine(_imagesTmpFolder);
         }
 
         
@@ -87,9 +86,6 @@ namespace Detector.Infrastructure.Services
                 img.Image.Save(m, img.Image.RawFormat);
                 byte[] imageBytes = m.ToArray();
 
-                // Convert byte[] to Base64 String
-                // base64String = Convert.ToBase64String(imageBytes);
-                
                 var result = new Result { imageStringProcessed = imageBytes, Description = img.Description, ElapsedTime = elapsedMs };
                 
                 return result;

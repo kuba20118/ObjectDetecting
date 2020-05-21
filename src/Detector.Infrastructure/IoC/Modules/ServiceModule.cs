@@ -1,6 +1,5 @@
 using System.Reflection;
 using Autofac;
-using Detector.Infrastructure.Database;
 using Detector.Infrastructure.Services;
 
 namespace Detector.Infrastructure.IoC.Modules

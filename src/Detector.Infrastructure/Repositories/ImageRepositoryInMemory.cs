@@ -4,19 +4,16 @@ using System.Linq;
 using System.Threading.Tasks;
 using Detector.Core.Domain;
 using Detector.Core.Repositories;
-using Detector.Infrastructure.Database;
 
 namespace Detector.Infrastructure.Repositories
 {
-    public class ImageRepositoryInMemory : IImageRepository, ISqlRepository
+    public class ImageRepositoryInMemory : IImageRepository
     {
-        private readonly DataContext _context;
 
         private static readonly ISet<Image> tempList = new HashSet<Image>();
 
-        public ImageRepositoryInMemory(DataContext context)
+        public ImageRepositoryInMemory()
         {
-            _context = context;
         }
         public async Task AddAsync(Image image)
         {

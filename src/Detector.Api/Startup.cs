@@ -18,7 +18,6 @@ using Microsoft.EntityFrameworkCore;
 using Detector.Infrastructure.Repositories;
 using Detector.Core.Repositories;
 using Detector.Infrastructure.Services;
-using Detector.Infrastructure.Database;
 using Detector.Infrastructure.Mappers;
 using Detector.Infrastructure.Mongo;
 

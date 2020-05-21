@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Detector.Core.Domain;
 using Detector.Core.Repositories;
-using Detector.Infrastructure.Database;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
 

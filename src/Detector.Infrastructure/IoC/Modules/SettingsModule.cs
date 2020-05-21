@@ -1,5 +1,4 @@
 using Autofac;
-using Detector.Infrastructure.Database;
 using Detector.Infrastructure.Extensions;
 using Detector.Infrastructure.Mongo;
 using Detector.Infrastructure.Settings;

@@ -13,6 +13,10 @@ case "$TRAVIS_BRANCH" in
 esac
 
 docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-docker build -f ./src/Detector.Api/Dockerfile -t detector.api:$DOCKER_TAG ./src/Detector.Api
-docker tag detector.api:$DOCKER_TAG $DOCKER_USERNAME/detector.api:$DOCKER_TAG
-docker push $DOCKER_USERNAME/detector.api:$DOCKER_TAG
+echo "1. logged"
+docker build -f ./src/Detector.Api/Dockerfile -t detector.api:latest ./src/Detector.Api
+echo "2. built"
+docker tag detector.api:latest $DOCKER_USERNAME/detector.api:latest
+echo "3. tagged"
+docker push $DOCKER_USERNAME/detector.api:latest
+echo "4. pushed"

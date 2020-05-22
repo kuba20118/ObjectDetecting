@@ -9,10 +9,11 @@ branches:
         - develop
 before_script:
     - chmod -R a+x scripts
-script:
-    - dotnet restore
-    - dotnet build
-after_success:
+#script:
+#    - dotnet restore
+#    - dotnet build
+#after_success:
+scripts:
     - ./scripts/travis-success.sh
 notifications:
     email:

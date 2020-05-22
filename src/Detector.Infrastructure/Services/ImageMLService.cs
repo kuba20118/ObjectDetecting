@@ -17,20 +17,18 @@ namespace Detector.Infrastructure.Services
     {
         private readonly string _imagesTmpFolder;
         private readonly IObjectDetectionService _objectDetectionService;
-        private readonly IImageFileWriter _imageWriter;
         private readonly IImageService _imageService;
 
         private string base64String = string.Empty;
         private long elapsedMs = 0;
-        public ImageMLService(IObjectDetectionService ObjectDetectionService, IImageFileWriter imageWriter, IImageService imageService) //When using DI/IoC (IImageFileWriter imageWriter)
+        public ImageMLService(IObjectDetectionService objectDetectionService, IImageService imageService) //When using DI/IoC (IImageFileWriter imageWriter)
         {
             _imageService = imageService;
-            _imageWriter = imageWriter;
-            _objectDetectionService = ObjectDetectionService;
-            _imagesTmpFolder = Path.GetFullPath(@"../Detector.Infrastructure/ImagesTemp");
+            _objectDetectionService = objectDetectionService;
+            _imagesTmpFolder = Path.GetFullPath(@"ImagesTemp");
         }
 
-        
+
 
         public async Task IdentifyObjects(IFormFile imageFile, Guid id)
         {
@@ -44,8 +42,14 @@ namespace Detector.Infrastructure.Services
                 Image image = Image.FromStream(imageMemoryStream);
                 string fileName = string.Format("{0}.Jpeg", image.GetHashCode());
                 string imageFilePath = Path.Combine(_imagesTmpFolder, fileName);
+                ////
+                bool exists = System.IO.Directory.Exists(_imagesTmpFolder);
+                if (!exists)
+                    System.IO.Directory.CreateDirectory(_imagesTmpFolder);
                 //save image to a path
                 image.Save(imageFilePath, ImageFormat.Jpeg);
+
+                ///
                 //Convert to Bitmap
                 Bitmap bitmapImage = (Bitmap)image;
 
@@ -62,7 +66,7 @@ namespace Detector.Infrastructure.Services
                 //Stop measuring time
                 watch.Stop();
                 elapsedMs = watch.ElapsedMilliseconds;
-                
+
                 result.ElapsedTime = elapsedMs;
                 result.imageStringOriginal = imageData;
 
@@ -87,7 +91,7 @@ namespace Detector.Infrastructure.Services
                 byte[] imageBytes = m.ToArray();
 
                 var result = new Result { imageStringProcessed = imageBytes, Description = img.Description, ElapsedTime = elapsedMs };
-                
+
                 return result;
             }
         }

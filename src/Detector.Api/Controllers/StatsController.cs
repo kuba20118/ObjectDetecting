@@ -39,6 +39,13 @@ namespace Detector.Api.Controllers
             return Ok(statsToReturn);
         }
 
+        [HttpGet("test")]
+        public async Task<IActionResult> Test()
+        {
+            
+            return Ok(DateTime.UtcNow);
+        }
+
 
 
         [HttpGet("{id}")]

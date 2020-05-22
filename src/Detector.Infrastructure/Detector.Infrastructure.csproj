@@ -25,7 +25,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Update="ImagesTemp\Readme.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="ML\MLNETModel\ReadMe.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

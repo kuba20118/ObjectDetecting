@@ -15,12 +15,10 @@ namespace Detector.Infrastructure.Services
     {
         private readonly IImageRepository _imageRepository;
         private readonly IMapper _mapper;
-        private readonly IImageFileWriter _imageWriter;
 
-        public ImageService(IImageRepository imageRepository, IMapper mapper, IImageFileWriter imageWriter)
-        {
+        public ImageService(IImageRepository imageRepository, IMapper mapper)
+        { 
             _mapper = mapper;
-            _imageWriter = imageWriter;
             _imageRepository = imageRepository;
         }
 

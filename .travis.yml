@@ -10,7 +10,8 @@ branches:
 before_script:
     - chmod -R a+x scripts
 script:
-    - ./scripts/travis-build.sh
+    - dotnet restore
+    - dotnet build
 after_success:
     - ./scripts/travis-success.sh
 notifications:

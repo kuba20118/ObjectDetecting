@@ -14,12 +14,12 @@ esac
 
 docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
 echo "1. logged"
-#cd ./src/Detector.Api
+cd ./src/Detector.Api
 echo "###"
 pwd
 ls 
 echo "###"
-docker build -f ./src/Detector.Api/Dockerfile -t detector.api:latest ./src/Detector.Api
+docker build -t detector.api:latest .
 echo "2. built"
 echo "###"
 pwd

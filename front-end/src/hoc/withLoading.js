@@ -10,7 +10,9 @@ import PacmanLoader from "react-spinners/PacmanLoader";
 
 const withLoading = (Component) => ({ isLoading, ...props }) => {
   return isLoading ? (
-    <PacmanLoader size={40} color={"rgb(54, 215, 183)"} loading={isLoading} />
+    <div className="loader-wrapper">
+      <PacmanLoader size={40} color={"rgb(54, 215, 183)"} loading={isLoading} />
+    </div>
   ) : (
     <Component {...props} />
   );

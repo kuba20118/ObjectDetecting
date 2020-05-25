@@ -1,17 +1,15 @@
 import React from "react";
 import { Nav } from "react-bootstrap";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Navigation = () => {
   return (
     <Nav defaultActiveKey="/">
       <Nav.Item>
-        <NavLink exact to="/">
-          Strona główna
-        </NavLink>
+        <Link to="/">Strona główna</Link>
       </Nav.Item>
       <Nav.Item>
-        <NavLink to="/statystyki">Statystki</NavLink>
+        <Link to="/statystyki">Statystki</Link>
       </Nav.Item>
     </Nav>
   );

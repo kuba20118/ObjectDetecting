@@ -1,6 +1,6 @@
 import React from "react";
 import "./assets/main.scss";
-import { BrowserRouter, Route } from "react-router-dom";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { Container } from "react-bootstrap";
 import ImageUploadContainer from "./containers/ImageUploadContainer";
 import StatsContainer from "./containers/StatsContainer";
@@ -11,8 +11,14 @@ const App = () => {
     <Container className="main">
       <BrowserRouter>
         <Navigation />
-        <Route exact path="/" component={ImageUploadContainer} />
-        <Route path="/statystyki" component={StatsContainer} />
+        <Switch>
+          <Route exact path="/" component={() => <ImageUploadContainer />} />
+          <Route
+            exact
+            path="/statystyki"
+            component={() => <StatsContainer />}
+          />
+        </Switch>
       </BrowserRouter>
     </Container>
   );

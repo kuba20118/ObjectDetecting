@@ -46,6 +46,11 @@ namespace Detector.Api.Framework
                     errorCode = e.Code;
                     break;
 
+                case DomainException e when exceptionType == typeof(DomainException):
+                    statusCode = HttpStatusCode.BadRequest;
+                    errorCode = e.Code;
+                    break;
+
 
                 default:
                 statusCode = HttpStatusCode.InternalServerError;

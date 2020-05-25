@@ -26,7 +26,7 @@ docker push $DOCKER_USERNAME/detector.api:latest
 
 echo "## React"
 pwd
-cd ./src/Detector.Api ././front-end
+cd ././front-end
 pwd
 echo "5. building"
 docker build -t detector.front:latest .

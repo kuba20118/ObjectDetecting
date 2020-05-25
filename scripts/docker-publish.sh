@@ -30,6 +30,8 @@ echo "## React"
 pwd
 cd ../
 pwd
+cd ../
+pwd
 cd ./front-end
 pwd
 echo "5. building"

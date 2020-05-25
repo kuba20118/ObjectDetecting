@@ -16,7 +16,9 @@ echo "## .Core"
 
 echo "1. log in"
 docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+pwd
 cd ./src/Detector.Api
+pwd
 echo "2. building"
 docker build -t detector.api:latest .
 echo "3. tagging"
@@ -26,7 +28,9 @@ docker push $DOCKER_USERNAME/detector.api:latest
 
 echo "## React"
 pwd
-cd ././front-end
+cd ../
+pwd
+cd ./front-end
 pwd
 echo "5. building"
 docker build -t detector.front:latest .

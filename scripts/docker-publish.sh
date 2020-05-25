@@ -15,9 +15,16 @@ esac
 docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
 echo "1. logged"
 cd ./src/Detector.Api
+echo "###"
+pwd
 ls
-docker build -f ./src/Detector.Api/Dockerfile -t detector.api:latest 
+echo "###"
+docker build -f ./src/Detector.Api/Dockerfile -t detector.api:latest ./src/Detector.Api
 echo "2. built"
+echo "###"
+pwd
+ls
+echo "###"
 docker tag detector.api:latest $DOCKER_USERNAME/detector.api:latest
 echo "3. tagged"
 docker push $DOCKER_USERNAME/detector.api:latest

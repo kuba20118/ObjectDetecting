@@ -18,6 +18,6 @@ cd ./src/Detector.Api
 echo "2. building"
 docker build -t detector.api:latest .
 echo "3. tagging"
-docker tag detector.api:latest $DOCKER_USERNAME/detector:latest
+docker tag detector.api:latest $DOCKER_USERNAME/detector.api:latest
 echo "4. pushing"
 docker push $DOCKER_USERNAME/detector.api:latest

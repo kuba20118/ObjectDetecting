@@ -1,10 +1,13 @@
 version: "2"
-
 services:
+
+  
   api:
     build: ../src/Detector.Api
     links:
       - mongo
+    expose: 
+      - "5000"
     ports:
       - '5000:5000'
 
@@ -14,3 +17,24 @@ services:
     #- ./data/db:/data/db
     ports:
       - '27017:27017'
+
+  sample:
+    stdin_open: true
+    container_name: sample
+    build:
+      context: ../front-end
+      dockerfile: Dockerfile
+    # volumes:
+    #   - '.:/app'
+    #   - '../front-end/app/node_modules'
+    ports:
+      - 3000:3000
+    expose:
+      - "3000"
+
+    depends_on: 
+        - api
+    links:
+        - api
+    environment:
+      - CHOKIDAR_USEPOLLING=true

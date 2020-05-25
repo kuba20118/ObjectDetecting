@@ -12,6 +12,8 @@ case "$TRAVIS_BRANCH" in
     ;;    
 esac
 
+echo "## .Core"
+
 echo "1. log in"
 docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
 cd ./src/Detector.Api
@@ -21,3 +23,16 @@ echo "3. tagging"
 docker tag detector.api:latest $DOCKER_USERNAME/detector.api:latest
 echo "4. pushing"
 docker push $DOCKER_USERNAME/detector.api:latest
+
+echo "## React"
+pwd
+cd ./src/Detector.Api ././front-end
+pwd
+echo "5. building"
+docker build -t detector.front:latest .
+echo "6. tagging"
+docker tag detector.front:latest $DOCKER_USERNAME/detector.front:latest
+echo "7. pushing"
+docker push $DOCKER_USERNAME/detector.front:latest
+
+

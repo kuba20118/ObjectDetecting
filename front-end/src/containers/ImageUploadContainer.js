@@ -5,6 +5,7 @@ import Image from "../components/Image";
 import { sendImage, addStats } from "../services/api";
 import ReviewForm from "../components/ReviewForm";
 import { store } from "../state/store.js";
+import { objectsListPL } from "../constants/objectsList";
 
 const ImageUploadContainer = () => {
   const globalState = useContext(store);
@@ -13,6 +14,7 @@ const ImageUploadContainer = () => {
   const [isLoadingImg, setIsLoadingImg] = useState(false);
   const [isLoadingReviewSent, setIsLoadingReviewSent] = useState(false);
   const [isReviewSent, setIsReviewSent] = useState(false);
+  const [resultImageDescr, setResultImageDescr] = useState([]);
 
   const [resultImageData, setResultImageData] = useState({});
 
@@ -21,9 +23,11 @@ const ImageUploadContainer = () => {
   };
 
   const handleImageSend = async (imageData) => {
+    setIsReviewSent(false);
     setIsLoadingImg(true);
     const res = await sendImage(imageData);
     setResultImageData(res.data);
+    setResultImageDescr(res.data.description);
 
     const src = `data:image/png;base64,${res.data.imageProcessed}`;
     dispatch({ type: "SET_IMAGE_SRC", payload: src });
@@ -33,6 +37,7 @@ const ImageUploadContainer = () => {
 
   const handleReviewSend = async (reviewFormData) => {
     setIsLoadingReviewSent(true);
+
     const reviewData = {
       imageId: resultImageData.id,
       ...reviewFormData,
@@ -48,6 +53,16 @@ const ImageUploadContainer = () => {
     <div>
       <Row className="justify-content-center">
         <Col>
+          <Card className="card-custom">
+            <p className="obj-list-title">
+              <b>Lista identyfikowalnych obiektów:</b>
+            </p>
+            <ul className="obj-list">
+              {objectsListPL.map((objName, i) => (
+                <li key={i}>{objName}</li>
+              ))}
+            </ul>
+          </Card>
           <Card className="card-custom card-image">
             <Image
               src={globalState.state.currentImageSrc}
@@ -62,17 +77,34 @@ const ImageUploadContainer = () => {
       <br />
       <br />
       <Row>
-        <Col>
-          {Object.keys(resultImageData).length ? (
-            <Card className="card-custom review-card">
-              <ReviewForm
-                onSubmit={handleReviewSend}
-                isLoading={isLoadingReviewSent}
-                isSent={isReviewSent}
-              />
-            </Card>
-          ) : null}
-        </Col>
+        {Object.keys(resultImageData).length ? (
+          <>
+            <Col md={4}>
+              <Card
+                className="card-custom"
+                style={{ height: "calc(100% - 30px)" }}
+              >
+                <p>
+                  <b>Rezultat ramek:</b>
+                </p>
+                <ul>
+                  {resultImageDescr.map((res, i) => (
+                    <li key={i}>{res}</li>
+                  ))}
+                </ul>
+              </Card>
+            </Col>
+            <Col md={8}>
+              <Card className="card-custom review-card">
+                <ReviewForm
+                  onSubmit={handleReviewSend}
+                  isLoading={isLoadingReviewSent}
+                  isSent={isReviewSent}
+                />
+              </Card>
+            </Col>
+          </>
+        ) : null}
       </Row>
     </div>
   );

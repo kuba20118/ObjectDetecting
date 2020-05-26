@@ -89,6 +89,8 @@ custom-file-input:active {
 
 .btn-primary {
   color: #fafafa;
+  background-color: map-get($theme-colors, "primary");
+  border-color: map-get($theme-colors, "primary");
 }
 
 .custom-file-input:lang(en) ~ .custom-file-label::after {
@@ -107,4 +109,27 @@ custom-file-input:active {
 .btn-primary.focus,
 .btn-primary:focus {
   box-shadow: none;
+}
+
+.obj-list-title {
+  margin: 5px 0;
+}
+
+.obj-list {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+
+  > li {
+    list-style-type: none;
+    padding: 2px 8px;
+  }
+}
+
+ul {
+  padding: 0;
+  > li {
+    list-style-type: none;
+  }
 }

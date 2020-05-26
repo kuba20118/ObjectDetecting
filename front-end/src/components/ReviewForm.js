@@ -17,8 +17,8 @@ const ReviewForm = ({ onSubmit, isSent }) => {
       correct: isCorrect ? parseInt(isCorrect, 10) : 0,
       incorrect: isIncorrect ? parseInt(isIncorrect, 10) : 0,
       notFound: notFound ? parseInt(notFound, 10) : 0,
-      multipleFound: parseInt(multipleFound, 10),
-      incorrectBox: parseInt(isIncorrectBox, 10),
+      multipleFound: multipleFound ? parseInt(multipleFound, 10) : 0,
+      incorrectBox: isIncorrectBox ? parseInt(isIncorrectBox, 10) : 0,
     };
     // send data...
     onSubmit(formData);
@@ -57,30 +57,20 @@ const ReviewForm = ({ onSubmit, isSent }) => {
               </Form.Group>
             </Col>
             <Col>
-              <Form.Group className="review-checboxes">
-                <Form.Label>Wiele znalezionych obiektów?</Form.Label>
-                <Form.Check
-                  type="radio"
-                  checked={!!multipleFound}
-                  onChange={() => setMultipleFound(1)}
-                />
-                <Form.Check
-                  type="radio"
-                  checked={!multipleFound}
-                  onChange={() => setMultipleFound(0)}
+              <Form.Group>
+                <Form.Label>Wiele znalezionych obiektów</Form.Label>
+                <Form.Control
+                  type="number"
+                  value={multipleFound}
+                  onChange={(e) => setMultipleFound(e.currentTarget.value)}
                 />
               </Form.Group>
-              <Form.Group className="review-checboxes">
-                <Form.Label>Niepoprawna ramka?</Form.Label>
-                <Form.Check
-                  type="radio"
-                  checked={!!isIncorrectBox}
-                  onChange={() => setIsIncorrectBox(1)}
-                />
-                <Form.Check
-                  type="radio"
-                  checked={!isIncorrectBox}
-                  onChange={() => setIsIncorrectBox(0)}
+              <Form.Group>
+                <Form.Label>Niepoprawna ramka</Form.Label>
+                <Form.Control
+                  type="number"
+                  value={isIncorrectBox}
+                  onChange={(e) => setIsIncorrectBox(e.currentTarget.value)}
                 />
               </Form.Group>
             </Col>

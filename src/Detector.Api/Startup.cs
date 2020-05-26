@@ -30,7 +30,6 @@ namespace Detector.Api
 
         private readonly string _onnxModelFilePath;
         private readonly string _mlnetModelFilePath;
-        private readonly MLModelSettings _mLModelSetting;
 
         public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
@@ -78,10 +77,10 @@ namespace Detector.Api
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IHostApplicationLifetime hostApplicationLifetime)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
+            // if (env.IsDevelopment())
+            // {
+            //     app.UseDeveloperExceptionPage();
+            // }
             MongoConfigurator.Initialize();
             // var dataInitializer = app.ApplicationServices.GetService<IDataInitializer>();
             // dataInitializer.SeedAsync();

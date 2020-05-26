@@ -7,6 +7,7 @@ using Detector.Core.Repositories;
 using Detector.Core.Domain;
 using Detector.Infrastructure.Charts;
 using System.Linq;
+using Detector.Infrastructure.Exceptions;
 
 namespace Detector.Infrastructure.Services
 {
@@ -29,7 +30,8 @@ namespace Detector.Infrastructure.Services
             var image = await _imageRepository.GetAsync(id);
 
             if (image == null)
-                throw new Exception("Nie znaleziono odpowiedniego zdjęcia");
+                throw new ServiceException(Exceptions.ErrorCodes.ImageNotFound, "Nie znaleziono obrazu");
+
 
             var statistics = new Statistics(id, image.Description, image.ElapsedTime, stats);
             await _statsRepository.AddAsync(statistics);
@@ -118,7 +120,7 @@ namespace Detector.Infrastructure.Services
             {
                 AverageTime = generalStats.AverageTime,
                 ChartsData = chartsList,
-                Effectiveness =  (double)generalStats.CorrectObjectsDetections / (generalStats.ObjectsFoundByML + generalStats.NotFoundObjects)
+                Effectiveness = (double)generalStats.CorrectObjectsDetections / (generalStats.ObjectsFoundByML + generalStats.NotFoundObjects)
             };
 
             return summaryStats;

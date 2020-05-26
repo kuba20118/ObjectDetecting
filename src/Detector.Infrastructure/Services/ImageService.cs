@@ -6,6 +6,7 @@ using AutoMapper;
 using Detector.Core.Domain;
 using Detector.Core.Repositories;
 using Detector.Infrastructure.Dtos;
+using Detector.Infrastructure.Exceptions;
 using Detector.Infrastructure.ImageFileHelpers;
 using Microsoft.AspNetCore.Http;
 
@@ -26,11 +27,12 @@ namespace Detector.Infrastructure.Services
         {
             if (result.imageStringOriginal == null || result.imageStringOriginal.Length == 0)
             {
-                throw new Exception("Nieprawidłowy obraz");
+                throw new ServiceException(Exceptions.ErrorCodes.InvalidImage, "Nieprawidłowy obraz");
             }
             if (result.imageStringProcessed == null || result.imageStringProcessed.Length == 0)
             {
-                throw new Exception("Nieprawidłowy obraz");
+                throw new ServiceException(Exceptions.ErrorCodes.InvalidImage, "Nieprawidłowy obraz");
+
             }
             var guid = id;
 

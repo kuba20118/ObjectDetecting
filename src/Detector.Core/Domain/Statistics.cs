@@ -58,6 +58,9 @@ namespace Detector.Core.Domain
             if (feedback.NotFound < 0)
                 throw new DomainException(ErrorCodes.InvalidFeedbackData, "Niepoprawne dane");
 
+            if(feedback.NotFound > 5)
+                feedback.NotFound = 5;
+
             if (feedback.Correct < 0)
                 throw new DomainException(ErrorCodes.InvalidFeedbackData, "Niepoprawne dane");
 

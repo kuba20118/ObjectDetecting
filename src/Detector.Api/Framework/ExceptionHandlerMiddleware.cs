@@ -54,6 +54,7 @@ namespace Detector.Api.Framework
 
                 default:
                 statusCode = HttpStatusCode.InternalServerError;
+                errorCode ="test_error";
                 break;
             }
 

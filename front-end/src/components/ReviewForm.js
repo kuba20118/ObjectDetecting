@@ -156,7 +156,7 @@ const ReviewForm = ({ onSubmit, isSent, foundObjectsNum = 0 }) => {
                 </Form.Group>
                 <a
                   className="btn-tooltip"
-                  data-tip="Obiekt z listy, dobrze widoczny. <br />Na zdjęciu nie został wykryty i zaznaczony, np. <br />na zdjęciu z 3 kotami, zaznaczone są tylko 2 z nich."
+                  data-tip="Obiekt został poprawnie wykryty, ale zaznaczony<br />więcej niż jeden raz. np. na zdjęciu z jedną krową<br /> naniesione są 2 ramki."
                   data-for="multipleFoundInfo"
                 >
                   i
@@ -190,7 +190,7 @@ const ReviewForm = ({ onSubmit, isSent, foundObjectsNum = 0 }) => {
                 </Form.Group>
                 <a
                   className="btn-tooltip"
-                  data-tip="Obiekt został poprawnie wykryty, ale zaznaczony<br />więcej niż jeden raz. np. na zdjęciu z jedną krową<br /> naniesione są 2 ramki."
+                  data-tip="Obiekt został poprawnie wykryty, ale ramka jest<br /> niedokładna, np. na zdjęciu kota zaznaczone jest jego ucho."
                   data-for="incorrectBoxInfo"
                 >
                   i
@@ -222,7 +222,7 @@ const ReviewForm = ({ onSubmit, isSent, foundObjectsNum = 0 }) => {
                 </Form.Group>
                 <a
                   className="btn-tooltip"
-                  data-tip="Obiekt został poprawnie wykryty, ale ramka jest<br /> niedokładna, np. na zdjęciu kota zaznaczone jest jego ucho."
+                  data-tip="Obiekt z listy, dobrze widoczny. <br />Na zdjęciu nie został wykryty i zaznaczony, np. <br />na zdjęciu z 3 kotami, zaznaczone są tylko 2 z nich."
                   data-for="notFoundInfo"
                 >
                   i

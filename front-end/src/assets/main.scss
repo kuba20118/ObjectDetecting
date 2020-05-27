@@ -20,18 +20,23 @@ $theme-colors: (
   width: 100%;
   padding: 15px;
   margin: 15px;
+
+  @media (max-width: 768px) {
+    margin: 10px 0;
+  }
 }
 
 .stats-card {
   width: calc(50% - 30px);
-}
-
-.review-card {
-  height: 330px;
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 }
 
 .loader-wrapper {
-  height: 100%;
+  height: moz-available;
+  height: -webkit-fill-available;
+  height: stretch;
   width: 100%;
   display: flex;
   justify-content: center;
@@ -71,13 +76,6 @@ a:hover {
 
 .image-form {
   padding: 15px;
-}
-
-.review-checboxes {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
 }
 
 .custom-file-input,
@@ -131,5 +129,14 @@ ul {
   padding: 0;
   > li {
     list-style-type: none;
+  }
+}
+
+.review-card {
+  min-height: 330px;
+}
+.review-form-invalid-feedback {
+  p {
+    color: rgb(231, 63, 63);
   }
 }

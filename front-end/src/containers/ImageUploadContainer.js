@@ -15,8 +15,8 @@ const ImageUploadContainer = () => {
   const [isLoadingReviewSent, setIsLoadingReviewSent] = useState(false);
   const [isReviewSent, setIsReviewSent] = useState(false);
   const [resultImageDescr, setResultImageDescr] = useState([]);
-
   const [resultImageData, setResultImageData] = useState({});
+  const [foundObjectsNum, setFoundObjectsNum] = useState(0);
 
   const onUploadImage = (imageSrc) => {
     dispatch({ type: "SET_IMAGE_SRC", payload: imageSrc });
@@ -28,6 +28,7 @@ const ImageUploadContainer = () => {
     const res = await sendImage(imageData);
     setResultImageData(res.data);
     setResultImageDescr(res.data.description);
+    setFoundObjectsNum(res.data.description.length);
 
     const src = `data:image/png;base64,${res.data.imageProcessed}`;
     dispatch({ type: "SET_IMAGE_SRC", payload: src });
@@ -100,6 +101,7 @@ const ImageUploadContainer = () => {
                   onSubmit={handleReviewSend}
                   isLoading={isLoadingReviewSent}
                   isSent={isReviewSent}
+                  foundObjectsNum={foundObjectsNum}
                 />
               </Card>
             </Col>

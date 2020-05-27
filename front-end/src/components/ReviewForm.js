@@ -3,15 +3,24 @@ import { Form, Button, Col, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import withLoading from "../hoc/withLoading";
 import { useForm } from "react-hook-form";
+import ReactTooltip from "react-tooltip";
 
 const onlyNumsPattern = /^\d+$/;
 
 const ReviewForm = ({ onSubmit, isSent, foundObjectsNum = 0 }) => {
   const [isNotValid, setIsNotValid] = useState(false);
+  const [isZero, setIsZero] = useState(true);
   const { register, errors, handleSubmit, getValues } = useForm();
 
   const onSubmitForm = (data) => {
-    if (isNotValid) return;
+    if (isAllZero()) {
+      setIsZero(true);
+      return;
+    }
+    if (!isRelatedValuesValid()) {
+      setIsNotValid(true);
+      return;
+    }
     const { correct, incorrect, notFound, multipleFound, incorrectBox } = data;
 
     const formData = {
@@ -25,7 +34,7 @@ const ReviewForm = ({ onSubmit, isSent, foundObjectsNum = 0 }) => {
     onSubmit(formData);
   };
 
-  const handleRelatedValueChange = (e) => {
+  const isRelatedValuesValid = () => {
     const valuesObj = getValues();
     const relatedValuesSum = Object.keys(valuesObj)
       .map((key) => ({
@@ -41,106 +50,200 @@ const ReviewForm = ({ onSubmit, isSent, foundObjectsNum = 0 }) => {
         sum.hasOwnProperty("value") ? sum.value + val.value : sum + val.value
       );
 
-    if (relatedValuesSum !== foundObjectsNum) setIsNotValid(true);
-    else {
+    return relatedValuesSum === foundObjectsNum;
+  };
+
+  const handleRelatedValueChange = (e) => {
+    if (isRelatedValuesValid()) {
+      setIsZero(false);
       setIsNotValid(false);
-    }
+    } else setIsNotValid(true);
+  };
+
+  const isAllZero = () => {
+    return (
+      Object.keys(getValues())
+        .map((key) => parseInt(getValues()[key], 10))
+        .reduce((sum, val) => sum + val) === 0
+    );
   };
 
   return (
     <>
       {!isSent ? (
         <Form noValidate onSubmit={handleSubmit(onSubmitForm)}>
-          <Row>
+          <Row className="review-row">
             <Col>
-              <Form.Group controlId="validation1">
-                <Form.Label>Poprawnie wykryte obiekty</Form.Label>
-                <Form.Control
-                  name="correct"
-                  type="number"
-                  ref={register({
-                    pattern: onlyNumsPattern,
-                    min: 0,
-                  })}
-                  defaultValue="0"
-                  onChange={handleRelatedValueChange}
-                  isInvalid={errors.correct}
-                />
-                <Form.Control.Feedback type="invalid">
-                  Wartość musi być liczbą większą lub równa 0.
-                </Form.Control.Feedback>
-              </Form.Group>
+              <Row className="review-form-row">
+                <Form.Group
+                  className="review-form-group"
+                  controlId="validation1"
+                >
+                  <Form.Label>Poprawnie wykryte obiekty</Form.Label>
+                  <Form.Control
+                    name="correct"
+                    type="number"
+                    ref={register({
+                      pattern: onlyNumsPattern,
+                      min: 0,
+                    })}
+                    defaultValue="0"
+                    onChange={handleRelatedValueChange}
+                    isInvalid={errors.correct}
+                  />
 
-              <Form.Group controlId="validation2">
-                <Form.Label>Niepoprawnie wykryte obiekty </Form.Label>
-                <Form.Control
-                  name="incorrect"
-                  type="number"
-                  ref={register({ pattern: onlyNumsPattern, min: 0 })}
-                  defaultValue="0"
-                  onChange={handleRelatedValueChange}
-                  isInvalid={errors.incorrect}
+                  <Form.Control.Feedback type="invalid">
+                    Wartość musi być liczbą większą lub równa 0.
+                  </Form.Control.Feedback>
+                </Form.Group>
+                <a
+                  className="btn-tooltip"
+                  data-tip="Obiekt został poprawnie wykryty i zaznaczony."
+                  data-for="correctInfo"
+                >
+                  i
+                </a>
+                <ReactTooltip id="correctInfo" type="info" multiline={true} />
+              </Row>
+              <Row className="review-form-row">
+                <Form.Group
+                  className="review-form-group"
+                  controlId="validation2"
+                >
+                  <Form.Label>Niepoprawnie wykryte obiekty </Form.Label>
+                  <Form.Control
+                    name="incorrect"
+                    type="number"
+                    ref={register({ pattern: onlyNumsPattern, min: 0 })}
+                    defaultValue="0"
+                    onChange={handleRelatedValueChange}
+                    isInvalid={errors.incorrect}
+                  />
+
+                  <Form.Control.Feedback type="invalid">
+                    Wartość musi być liczbą większą lub równa 0.
+                  </Form.Control.Feedback>
+                </Form.Group>
+                <a
+                  className="btn-tooltip"
+                  data-tip="Obiekt został niepoprawnie sklasyfikowany, np. <br />pies na zdjęciu został oznaczony jako kot."
+                  data-for="incorrectInfo"
+                >
+                  i
+                </a>
+                <ReactTooltip id="incorrectInfo" type="info" multiline={true} />
+              </Row>
+              <Row className="review-form-row">
+                <Form.Group
+                  className="review-form-group"
+                  controlId="validation4"
+                >
+                  <Form.Label>
+                    Kilkukrotne zaznaczenie wykrytego obiektu
+                  </Form.Label>
+                  <Form.Control
+                    name="multipleFound"
+                    type="number"
+                    ref={register({ pattern: onlyNumsPattern, min: 0 })}
+                    defaultValue="0"
+                    onChange={handleRelatedValueChange}
+                    isInvalid={errors.multipleFound}
+                  />
+
+                  <Form.Control.Feedback type="invalid">
+                    Wartość musi być liczbą większą lub równa 0.
+                  </Form.Control.Feedback>
+                </Form.Group>
+                <a
+                  className="btn-tooltip"
+                  data-tip="Obiekt z listy, dobrze widoczny. <br />Na zdjęciu nie został wykryty i zaznaczony, np. <br />na zdjęciu z 3 kotami, zaznaczone są tylko 2 z nich."
+                  data-for="multipleFoundInfo"
+                >
+                  i
+                </a>
+                <ReactTooltip
+                  id="multipleFoundInfo"
+                  type="info"
+                  multiline={true}
                 />
-                <Form.Control.Feedback type="invalid">
-                  Wartość musi być liczbą większą lub równa 0.
-                </Form.Control.Feedback>
-              </Form.Group>
-              <Form.Group controlId="validation4">
-                <Form.Label>Wiele znalezionych obiektów</Form.Label>
-                <Form.Control
-                  name="multipleFound"
-                  type="number"
-                  ref={register({ pattern: onlyNumsPattern, min: 0 })}
-                  defaultValue="0"
-                  onChange={handleRelatedValueChange}
-                  isInvalid={errors.multipleFound}
-                />
-                <Form.Control.Feedback type="invalid">
-                  Wartość musi być liczbą większą lub równa 0.
-                </Form.Control.Feedback>
-              </Form.Group>
+              </Row>
             </Col>
             <Col>
-              <Form.Group controlId="validation5">
-                <Form.Label>Niepoprawna ramka</Form.Label>
-                <Form.Control
-                  name="incorrectBox"
-                  type="number"
-                  ref={register({ pattern: onlyNumsPattern, min: 0 })}
-                  defaultValue="0"
-                  onChange={handleRelatedValueChange}
-                  isInvalid={errors.incorrectBox}
+              <Row className="review-form-row">
+                <Form.Group
+                  className="review-form-group"
+                  controlId="validation5"
+                >
+                  <Form.Label>Niepoprawna ramka</Form.Label>
+                  <Form.Control
+                    name="incorrectBox"
+                    type="number"
+                    ref={register({ pattern: onlyNumsPattern, min: 0 })}
+                    defaultValue="0"
+                    onChange={handleRelatedValueChange}
+                    isInvalid={errors.incorrectBox}
+                  />
+
+                  <Form.Control.Feedback type="invalid">
+                    Wartość musi być liczbą większą lub równa 0.
+                  </Form.Control.Feedback>
+                </Form.Group>
+                <a
+                  className="btn-tooltip"
+                  data-tip="Obiekt został poprawnie wykryty, ale zaznaczony<br />więcej niż jeden raz. np. na zdjęciu z jedną krową<br /> naniesione są 2 ramki."
+                  data-for="incorrectBoxInfo"
+                >
+                  i
+                </a>
+                <ReactTooltip
+                  id="incorrectBoxInfo"
+                  type="info"
+                  multiline={true}
                 />
-                <Form.Control.Feedback type="invalid">
-                  Wartość musi być liczbą większą lub równa 0.
-                </Form.Control.Feedback>
-              </Form.Group>
-              <Form.Group controlId="validation3">
-                <Form.Label>Niewykryte obiekty</Form.Label>
-                <Form.Control
-                  name="notFound"
-                  type="number"
-                  ref={register({ pattern: onlyNumsPattern, min: 0 })}
-                  defaultValue="0"
-                  onChange={handleRelatedValueChange}
-                  isInvalid={errors.notFound}
-                />
-                <Form.Control.Feedback type="invalid">
-                  Wartość musi być liczbą większą lub równa 0.
-                </Form.Control.Feedback>
-              </Form.Group>
-              {isNotValid ? (
-                <div className="review-form-invalid-feedback">
-                  <p>
-                    {`Suma wszystkich pól oprócz obiektów nieznalezionych musi być równa liczbie znalezionych obiektów tj. ${foundObjectsNum}.`}
-                  </p>
-                </div>
-              ) : null}
+              </Row>
+              <Row className="review-form-row">
+                <Form.Group
+                  className="review-form-group"
+                  controlId="validation3"
+                >
+                  <Form.Label>Niewykryte obiekty</Form.Label>
+                  <Form.Control
+                    name="notFound"
+                    type="number"
+                    ref={register({ pattern: onlyNumsPattern, min: 0 })}
+                    defaultValue="0"
+                    onChange={handleRelatedValueChange}
+                    isInvalid={errors.notFound}
+                  />
+
+                  <Form.Control.Feedback type="invalid">
+                    Wartość musi być liczbą większą lub równa 0.
+                  </Form.Control.Feedback>
+                </Form.Group>
+                <a
+                  className="btn-tooltip"
+                  data-tip="Obiekt został poprawnie wykryty, ale ramka jest<br /> niedokładna, np. na zdjęciu kota zaznaczone jest jego ucho."
+                  data-for="notFoundInfo"
+                >
+                  i
+                </a>
+                <ReactTooltip id="notFoundInfo" type="info" multiline={true} />
+              </Row>
+              <Row className="review-form-row">
+                {isNotValid ? (
+                  <div className="review-form-invalid-feedback">
+                    <p>
+                      {`Suma wszystkich pól oprócz obiektów nieznalezionych musi być równa liczbie znalezionych obiektów tj. ${foundObjectsNum}.`}
+                    </p>
+                  </div>
+                ) : null}
+              </Row>
             </Col>
           </Row>
           <Row className="justify-content-end">
             <Button
-              variant="primary"
+              variant={isZero || isNotValid ? "light" : "primary"}
+              disabled={isZero || isNotValid}
               type="submit"
               style={{ margin: "0 15px" }}
             >

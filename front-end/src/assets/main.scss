@@ -78,11 +78,23 @@ a:hover {
   padding: 15px;
 }
 
+.custom-file {
+  margin-right: 16px;
+  border-radius: 0.25em;
+  border: 1px solid map-get($theme-colors, "primary");
+}
+
 .custom-file-input,
 custom-file-input:hover,
 custom-file-input:focus,
 custom-file-input:active {
   outline: none;
+}
+
+.custom-file-label {
+  background: transparent;
+  color: map-get($theme-colors, "primary");
+  border: none;
 }
 
 .btn-primary {
@@ -91,10 +103,32 @@ custom-file-input:active {
   border-color: map-get($theme-colors, "primary");
 }
 
+.btn-outline-primary:hover,
+.btn-outline-primary:not(:disabled):not(.disabled):active,
+.btn-outline-primary:not(:disabled):not(.disabled).active,
+.show > .btn-outline-primary.dropdown-toggle {
+  color: white;
+}
+
+.btn-light {
+  background-color: #e0e0e0;
+  border-color: #e0e0e0;
+
+  &:disabled {
+    // background-color: #e0e0e0;
+    border-color: #ebeaea;
+    cursor: unset;
+  }
+}
+
 .custom-file-input:lang(en) ~ .custom-file-label::after {
   display: none;
   border: 0;
 }
+
+// .custom-file-label {
+//   background-color: map-get($theme-colors, "primary");
+// }
 
 .custom-file-input:focus ~ .custom-file-label {
   border-color: #ced4da;
@@ -138,5 +172,38 @@ ul {
 .review-form-invalid-feedback {
   p {
     color: rgb(231, 63, 63);
+  }
+}
+
+.review-form-group {
+  flex: auto;
+  margin: 0 8px 0;
+}
+
+.btn-tooltip {
+  align-self: flex-end;
+  background: hsl(0, 0%, 97%);
+  border: 1px solid lightgrey;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 4px;
+  margin-right: 4px;
+  padding: 0;
+  font-style: italic;
+}
+
+.review-form-row {
+  align-items: flex-end;
+  margin: 8px 0;
+  flex-wrap: nowrap;
+}
+
+.review-row {
+  @media (max-width: 768px) {
+    flex-direction: column;
   }
 }

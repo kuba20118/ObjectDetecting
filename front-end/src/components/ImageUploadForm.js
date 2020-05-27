@@ -33,15 +33,6 @@ const ImageUploadForm = ({ onUpload, sendImage }) => {
   return (
     <Form onSubmit={handleSubmit} className="image-form">
       <div className="input-group">
-        <div className="input-group-prepend">
-          <Button
-            className="input-group-text"
-            type="submit"
-            disabled={!isSubmitable}
-          >
-            Wyślij
-          </Button>
-        </div>
         <div className="custom-file">
           <input
             type="file"
@@ -55,6 +46,13 @@ const ImageUploadForm = ({ onUpload, sendImage }) => {
             Wybierz zdjęcie
           </label>
         </div>
+        <Button
+          type="submit"
+          variant={isSubmitable ? "primary" : "light"}
+          disabled={!isSubmitable}
+        >
+          Wyślij
+        </Button>
       </div>
     </Form>
   );

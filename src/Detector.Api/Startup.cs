@@ -14,7 +14,6 @@ using Detector.Infrastructure.ImageFileHelpers;
 using Detector.ML.Config;
 using Detector.ML;
 using Detector.Infrastructure.Settings;
-using Microsoft.EntityFrameworkCore;
 using Detector.Infrastructure.Repositories;
 using Detector.Core.Repositories;
 using Detector.Infrastructure.Services;

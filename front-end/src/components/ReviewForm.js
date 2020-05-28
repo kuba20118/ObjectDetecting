@@ -73,7 +73,7 @@ const ReviewForm = ({ onSubmit, isSent, foundObjectsNum = 0 }) => {
       {!isSent ? (
         <Form noValidate onSubmit={handleSubmit(onSubmitForm)}>
           <Row className="review-row">
-            <Col>
+            <Col sm={7}>
               <Row className="review-form-row">
                 <Form.Group
                   className="review-form-group"
@@ -168,7 +168,7 @@ const ReviewForm = ({ onSubmit, isSent, foundObjectsNum = 0 }) => {
                 />
               </Row>
             </Col>
-            <Col>
+            <Col sm={5}>
               <Row className="review-form-row">
                 <Form.Group
                   className="review-form-group"
